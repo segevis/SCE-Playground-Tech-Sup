@@ -1,0 +1,59 @@
+// authentication-service/src/controllers/authController.js
+import { authService } from '../services/authService.js';
+
+export async function signup(req, res, next) {
+  try {
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      dateOfBirth
+    } = req.body;
+
+    console.log('Got signup request: ', email, ' and password: ', password);
+    
+
+    const newUser = await authService.signup(
+      email,
+      password,
+      firstName,
+      lastName,
+      dateOfBirth
+    );
+    // newUser will not include password
+    return res.status(201).json(newUser);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function signin(req, res, next) {
+  try {
+    const { email, password } = req.body;
+    const token = await authService.signin(email, password);
+    return res.status(200).json({ token });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function validateToken(req, res, next) {
+  try {
+    const { token } = req.body;
+    const isValid = await authService.validateToken(token);
+    return res.status(200).json({ valid: isValid });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function deleteUser(req, res, next) {
+  try {
+    const { email } = req.query;
+    await authService.deleteUser(email);
+    return res.status(204).send(); // no content
+  } catch (error) {
+    return next(error);
+  }
+}

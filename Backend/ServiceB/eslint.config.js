@@ -1,7 +1,7 @@
 import globals from 'globals';
 
 
-export default [
+export [
   {
     languageOptions: { globals: globals.browser },
     rules: {
