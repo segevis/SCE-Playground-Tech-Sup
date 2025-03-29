@@ -1,5 +1,5 @@
 # AutheticationService/.github/workflows/ci.yml
-name: CI - Gateway Service
+name: CI - Auth Service
 
 on:
   push:
