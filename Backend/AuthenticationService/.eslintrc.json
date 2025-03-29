@@ -34,7 +34,7 @@
   
       // Disallow console.log (set to “warn” so new devs learn to remove logs before production).
       // You could also set this to "error" for stricter enforcement.
-      "no-console": ["warn"],
+      // "no-console": ["warn"],
   
       // Prefer 'const' for variables that never get re-assigned.
       "prefer-const": ["warn"],
