@@ -1,11 +1,15 @@
-# gateway-service/.github/workflows/ci.yml
+# GatewayService/.github/workflows/ci.yml
 name: CI - Gateway Service
 
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'GatewayService/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'GatewayService/**'
 
 jobs:
   build-and-test:
