@@ -26,15 +26,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd GatewayService
+          cd Backend/GatewayService
           npm install
 
       - name: Run Linter
         run: |
-          cd GatewayService
+          cd Backend/GatewayService
           npm run lint
 
       - name: Run Tests
         run: |
-          cd GatewayService
+          cd Backend/GatewayService
           npm test

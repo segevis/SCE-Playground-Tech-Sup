@@ -26,15 +26,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd AuthenticationService
+          cd Backend/AuthenticationService
           npm install
 
       - name: Run Linter
         run: |
-          cd AuthenticationService
+          cd Backend/AuthenticationService
           npm run lint
 
       - name: Run Tests
         run: |
-          cd AuthenticationService
+          cd Backend/AuthenticationService
           npm test
