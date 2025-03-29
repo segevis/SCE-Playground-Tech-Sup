@@ -5,11 +5,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'Backend/AutheticationService/**'
+      - 'Backend/AuthenticationService/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'Backend/AutheticationService/**'
+      - 'Backend/AuthenticationService/**'
 
 jobs:
   build-and-test:
