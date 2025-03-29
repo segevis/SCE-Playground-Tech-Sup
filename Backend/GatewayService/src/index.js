@@ -16,5 +16,5 @@ app.use('/', gatewayRoutes);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`Gateway service running on port ${PORT}`);
+  console.log(`Gateway service running on port: ${PORT}`);
 });
