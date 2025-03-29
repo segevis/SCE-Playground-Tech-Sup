@@ -34,6 +34,14 @@ jobs:
           cd Backend/AuthenticationService
           npm run lint
 
+  deploy-to-render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Render
+        run: curl https://api.render.com/deploy/srv-cvk64qogjchc73c8gtu0?key=sY0-Rl9m3vA
+
+
       - name: Run Tests
         run: |
           cd Backend/AuthenticationService
