@@ -1,5 +1,5 @@
 // gateway-service/index.js
-import 'dotenv/config'
+import 'dotenv/config';
 import express, { json } from 'express';
 import { errorHandler } from './middleware/errorHandler.js';
 import gatewayRoutes from './routes/gatewayRoutes.js';
