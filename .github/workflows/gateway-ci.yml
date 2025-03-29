@@ -38,3 +38,10 @@ jobs:
         run: |
           cd Backend/GatewayService
           npm test
+          
+  deploy-to-render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Render
+        run: curl https://api.render.com/deploy/srv-cvk62cq4d50c73dk2i10?key=r6gQtstyo5w
