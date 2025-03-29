@@ -1,6 +1,6 @@
 // gateway-service/src/controllers/gatewayController.js
 import axios from 'axios';
-import 'dotenv/config'
+import 'dotenv/config';
 
 const forwardAuthRequests = async (req, res, next) => {
   try {

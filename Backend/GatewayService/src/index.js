@@ -1,8 +1,8 @@
 // gateway-service/index.js
 import 'dotenv/config'
 import express, { json } from 'express';
-import { errorHandler } from './middleware/errorHandler';
-import gatewayRoutes from './routes/gatewayRoutes';
+import { errorHandler } from './middleware/errorHandler.js';
+import gatewayRoutes from './routes/gatewayRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
