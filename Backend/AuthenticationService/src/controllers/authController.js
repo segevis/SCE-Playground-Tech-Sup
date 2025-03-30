@@ -17,8 +17,7 @@ export async function signup(req, res, next) {
       email,
       password,
       firstName,
-      lastName,
-      dateOfBirth
+      lastName
     );
     // newUser will not include password
     return res.status(201).json(newUser);

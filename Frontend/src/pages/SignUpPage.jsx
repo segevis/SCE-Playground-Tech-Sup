@@ -12,8 +12,7 @@ export default function SignUpPage() {
     email: '',
     password: '',
     firstName: '',
-    lastName: '',
-    dateOfBirth: ''
+    lastName: ''
   });
   const [error, setError] = useState(null);
 

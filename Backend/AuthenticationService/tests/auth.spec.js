@@ -35,15 +35,13 @@ describe('Authentication Service Tests', () => {
         email: createdUserEmail,
         password: '123456',
         firstName: 'Test',
-        lastName: 'User',
-        dateOfBirth: '1990-01-01'
+        lastName: 'User'
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body).to.have.property('email').equal(createdUserEmail);
         expect(res.body).to.have.property('firstName').equal('Test');
         expect(res.body).to.have.property('lastName').equal('User');
-        expect(res.body).to.have.property('dateOfBirth').equal('1990-01-01');
         done();
       });
   });
@@ -55,8 +53,7 @@ describe('Authentication Service Tests', () => {
         email: createdUserEmail,
         password: 'anotherPass',
         firstName: 'Someone',
-        lastName: 'Else',
-        dateOfBirth: '1995-05-05'
+        lastName: 'Else'
       })
       .end((err, res) => {
         expect(res).to.have.status(400);

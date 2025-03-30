@@ -29,8 +29,7 @@ export const authService = {
       id: user.id,
       email: user.email,
       firstName: user.firstName,
-      lastName: user.lastName,
-      dateOfBirth: user.dateOfBirth
+      lastName: user.lastName
     };
   },
 
@@ -57,8 +56,7 @@ export const authService = {
         id: user.id,
         email: user.email,
         firstName: user.firstName,
-        lastName: user.lastName,
-        dateOfBirth: user.dateOfBirth
+        lastName: user.lastName
       },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
