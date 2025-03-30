@@ -1,42 +1,163 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* =====================
+   Global Reset & Fonts
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #f3f5f7; /* Subtle background color */
+  color: #333;        /* Default font color */
+  background-image: url(/Background.png)
+}
+
+/* =====================
+   Navigation Bar
+===================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  height: 60px;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.university-icon {
+  height: 40px;
+  width: auto;
+  margin-right: 1rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+/* The links container */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  margin-right: 1.5rem;
+}
+
+/* The links themselves */
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Hover effect on nav links */
+.nav-links a:hover {
+  color: #0077cc;
+}
+
+/* User Circle (if logged in) */
+.user-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0077cc;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin-left: 1rem;
+  text-transform: uppercase; /* For an uppercase initial */
+}
+
+/* =====================
+   Home Page
+===================== */
+.home-container {
   text-align: center;
+  padding: 3rem 1rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.home-container h1 {
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.home-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.home-images img {
+  width: 300px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
-.card {
-  padding: 2em;
+/* =====================
+   Auth Pages
+===================== */
+.auth-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.read-the-docs {
-  color: #888;
+.auth-container h3 {
+  text-align: center;
+  /* margin-bottom: 1.5rem; */
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 70%;
+}
+
+.auth-form input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.auth-form button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  background: #0077cc;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.auth-form button:hover {
+  background: #005fa3;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }

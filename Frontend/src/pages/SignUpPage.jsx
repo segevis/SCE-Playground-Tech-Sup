@@ -24,12 +24,11 @@ export default function SignUpPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
-    console.log("Submit sign up", JSON.stringify(form));
-    
+
     try {
-      // Sign up the user
-      const response = await api.post('/auth/signup', form);
-      // After sign-up, optionally auto-sign them in
+      await api.post('/auth/signup', form);
+
+      // Then sign in automatically
       const signInResponse = await api.post('/auth/signin', {
         email: form.email,
         password: form.password
@@ -37,73 +36,41 @@ export default function SignUpPage() {
       const { token } = signInResponse.data;
       const userData = {
         email: form.email,
-        firstName: form.firstName,
-        lastName: form.lastName
+        firstName: form.firstName
       };
       signIn(userData, token);
 
       navigate('/products');
     } catch (err) {
-      console.log("errror occured", err);
       setError(err.response?.data?.message || 'Sign up failed');
     }
   }
 
   return (
-    <div style={{ padding: '1rem' }}>
-      <h2>Sign Up</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className='auth-container'>
+      <img
+        className='university-icon'
+        src='https://www.sce.ac.il/ver/14/tpl/website/img/SamiSH-logo_2.png'
+        alt='University Icon'
+      />
+      <h3>Sign Up</h3>
+      {error && <p className='error-message'>{error}</p>}
 
-      <form onSubmit={handleSubmit}>
+      <form className='auth-form' onSubmit={handleSubmit}>
         <div>
-          <label>Email: </label>
-          <input 
-            type="email" 
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required 
-          />
+          <input type='email' name='email' placeholder='Email' value={form.email} onChange={handleChange} required />
         </div>
         <div>
-          <label>Password: </label>
-          <input 
-            type="password" 
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            required 
-          />
+          <input type='password' name='password' placeholder='Password' value={form.password} onChange={handleChange} required />
         </div>
         <div>
-          <label>First Name: </label>
-          <input 
-            type="text" 
-            name="firstName"
-            value={form.firstName}
-            onChange={handleChange}
-          />
+          <input type='text' name='firstName' placeholder='First Name' value={form.firstName} onChange={handleChange} />
         </div>
         <div>
-          <label>Last Name: </label>
-          <input 
-            type="text"
-            name="lastName"
-            value={form.lastName}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Date of Birth: </label>
-          <input 
-            type="date"
-            name="dateOfBirth"
-            value={form.dateOfBirth}
-            onChange={handleChange}
-          />
+          <input type='text' name='lastName' placeholder='Last Name' value={form.lastName} onChange={handleChange} />
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type='submit'>Sign Up</button>
       </form>
     </div>
   );

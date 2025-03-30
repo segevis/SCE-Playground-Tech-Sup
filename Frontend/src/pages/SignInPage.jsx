@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../store/AuthContext.jsx';
 import api from '../services/api.js';
+import '../App.css'; // ensure global styles are available
 
 export default function SignInPage() {
   const { signIn } = useContext(AuthContext);
@@ -19,8 +20,8 @@ export default function SignInPage() {
     try {
       const response = await api.post('/auth/signin', { email, password });
       const { token } = response.data;
-      // You might want to decode token or fetch user data from /profile
-      const userData = { email }; 
+      // minimal user data
+      const userData = { email };
       signIn(userData, token);
       navigate('/products');
     } catch (err) {
@@ -29,25 +30,30 @@ export default function SignInPage() {
   }
 
   return (
-    <div style={{ padding: '1rem' }}>
-      <h2>Sign In</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="auth-container">
+       <img
+          className="university-icon"
+          src="https://www.sce.ac.il/ver/14/tpl/website/img/SamiSH-logo_2.png"
+          alt="University Icon"
+        />
+      <h3>Sign In</h3>
+      {error && <p className="error-message">{error}</p>}
       
-      <form onSubmit={handleSubmit}>
+      <form className="auth-form" onSubmit={handleSubmit}>
         <div>
-          <label>Email: </label>
-          <input 
+          <input
             type="email"
             value={email} 
+            placeholder="Email"
             onChange={e => setEmail(e.target.value)}
             required 
           />
         </div>
         <div>
-          <label>Password: </label>
           <input 
             type="password"
             value={password} 
+            placeholder="Password"
             onChange={e => setPassword(e.target.value)}
             required 
           />
