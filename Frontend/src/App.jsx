@@ -12,7 +12,7 @@ import './App.css'; // Import the new CSS
 function Navbar() {
   const { user } = useContext(AuthContext);
 
-  // If user exists, create an initial (like "C" for "Chen")
+  // If user exists, create an initial 
   const userInitial = user && user.firstName ? user.firstName[0] : user && user.email ? user.email[0] : null;
 
   return (
