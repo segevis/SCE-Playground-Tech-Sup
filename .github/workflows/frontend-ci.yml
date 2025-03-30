@@ -1,4 +1,4 @@
-name: Frontend CI
+name: CI - Frontend
 
 on:
   push:
@@ -39,6 +39,7 @@ jobs:
           npm run test
 
   deploy-to-render:
+    needs: [build-and-test]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Render
