@@ -8,21 +8,19 @@ import ProductsPage from './pages/ProductsPage.jsx';
 import { StoreProvider, StoreContext } from './store/StoreContext.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import './App.css'; // Import the new CSS
-import ReportsPage from "./pages/ReportsPage.jsx";
+import ReportsPage from './pages/ReportsPage.jsx';
 
 function Navbar() {
   const { user, signOut } = useContext(StoreContext);
   const navigate = useNavigate();
 
-
-  function signUserOut(){
+  function signUserOut() {
     signOut();
     navigate('/signin');
   }
-  
-  // If user exists, create an initial 
-  const userInitial = user && user.firstName ? user.firstName[0] : user && user.email ? user.email[0] : null;
 
+  // If user exists, create an initial
+  const userInitial = user && user.firstName ? user.firstName[0] : user && user.email ? user.email[0] : null;
 
   return (
     <div className='navbar'>
@@ -38,7 +36,7 @@ function Navbar() {
       <div className='nav-right'>
         <div className='nav-links'>
           <Link to='/'>Home</Link>
-          {!user ? <Link to='/signin'>Sign In</Link> : <a onClick={signUserOut} >Sign out</a>}
+          {!user ? <Link to='/signin'>Sign In</Link> : <a onClick={signUserOut}>Sign out</a>}
           <Link to='/signup'>Sign Up</Link>
           <Link to='/products'>Products</Link>
         </div>
