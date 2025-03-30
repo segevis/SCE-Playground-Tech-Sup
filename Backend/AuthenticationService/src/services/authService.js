@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { User } from '../data-access/userModel.js';
 
 export const authService = {
-  async signup(email, password, firstName, lastName, dateOfBirth) {
+  async signup(email, password, firstName, lastName) {
     // Check if email already exists
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
@@ -21,8 +21,7 @@ export const authService = {
       email,
       password: hashedPassword,
       firstName,
-      lastName,
-      dateOfBirth
+      lastName
     });
 
     // Return user without password

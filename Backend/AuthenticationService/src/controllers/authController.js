@@ -7,8 +7,7 @@ export async function signup(req, res, next) {
       email,
       password,
       firstName,
-      lastName,
-      dateOfBirth
+      lastName
     } = req.body;
 
     console.log('Got signup request: ', email, ' and password: ', password);

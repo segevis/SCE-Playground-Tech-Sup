@@ -24,10 +24,6 @@ export const User = sequelize.define('User', {
   lastName: {
     type: DataTypes.STRING,
     allowNull: true
-  },
-  dateOfBirth: {
-    type: DataTypes.DATEONLY,
-    allowNull: true
   }
 }, {
   tableName: 'users',
