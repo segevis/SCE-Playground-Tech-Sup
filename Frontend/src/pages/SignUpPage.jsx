@@ -1,11 +1,11 @@
 // frontend/src/pages/SignUpPage.jsx
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../store/AuthContext.jsx';
+import { StoreContext } from '../store/StoreContext.jsx';
 import api from '../services/api.js';
 
 export default function SignUpPage() {
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({

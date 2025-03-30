@@ -1,12 +1,12 @@
 // frontend/src/pages/SignInPage.jsx
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../store/AuthContext.jsx';
+import { StoreContext } from '../store/StoreContext.jsx';
 import api from '../services/api.js';
 import '../App.css'; // ensure global styles are available
 
 export default function SignInPage() {
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ export default function SignInPage() {
       const response = await api.post('/auth/signin', { email, password });
       const { token } = response.data;
       // minimal user data
-      const userData = { email };
+      const userData = { email, ...response.data };
       signIn(userData, token);
       navigate('/products');
     } catch (err) {

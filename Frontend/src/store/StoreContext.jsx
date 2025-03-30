@@ -1,11 +1,11 @@
-// frontend/src/store/AuthContext.jsx
+// frontend/src/store/StoreContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
 
-// Create the AuthContext
-export const AuthContext = createContext();
+// Create the StoreContext
+export const StoreContext = createContext();
 
 // AuthProvider handles user state, token storage, etc.
-export function AuthProvider({ children }) {
+export function StoreProvider({ children }) {
   const [user, setUser] = useState(null); // store entire user object
   const [token, setToken] = useState(null);
 
@@ -49,5 +49,5 @@ export function AuthProvider({ children }) {
     signOut
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 }

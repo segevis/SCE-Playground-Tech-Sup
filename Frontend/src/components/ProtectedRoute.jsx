@@ -1,10 +1,10 @@
 // frontend/src/components/ProtectedRoute.jsx
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../store/AuthContext.jsx';
+import { StoreContext } from '../store/StoreContext.jsx';
 
 export default function ProtectedRoute({ children }) {
-  const { token } = useContext(AuthContext);
+  const { token } = useContext(StoreContext);
 
   if (!token) {
     // If there's no token, redirect to /signin

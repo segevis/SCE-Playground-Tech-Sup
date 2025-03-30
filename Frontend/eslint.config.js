@@ -20,7 +20,7 @@ export default [
       'react-refresh': reactRefresh,
     },
     rules: {
-      "no-unused-vars": ["warn"],
+      // "no-unused-vars": ["warn"],
       "linebreak-style": ["warn", "unix"],
       "semi": ["error", "always"],
       "quotes": ["error", "single", { "avoidEscape": true }],
