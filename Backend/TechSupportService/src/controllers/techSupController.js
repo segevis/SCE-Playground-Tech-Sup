@@ -1,9 +1,10 @@
+import { getAllTechReports } from "../services/techSupportService.js";
 
 export async function getTechSuppot(req, res) {
     
     try {
 
-        const techSup = await techSupportService.getTechSuppot();
+        const techSup = await getAllTechReports();
         return res.status(200).json(techSup);
 
     } catch (err) {

@@ -1,9 +1,10 @@
 import express, { json } from 'express';
 import cors from 'cors';
 import { getTechSuppot } from './controllers/techSupController.js';
+import 'dotenv/config';
 
 const app = express();
-const port = 13250;
+const port = process.env.PORT || 13250;
 
 app.use(cors());
 app.use(json());
