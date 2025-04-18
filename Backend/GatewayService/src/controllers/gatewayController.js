@@ -49,6 +49,61 @@ async function getTechSup(req, res, next) {
   }
 }
 
+async function addOneTicket(req, res, next) {
+
+  const name = req.query.name;
+  const content = req.query.content;
+
+  if (!name || !content) {
+    return res.status(400).json({ error: 'Ticket name and content is required as a query param' });
+  }
+
+  try {
+    const techSupServiceUrl = `${process.env.TECH_SUP_SERVICE_URL}/techsupportadd?name=${name}&content=${content}`;
+    const response = await axios.post(techSupServiceUrl);
+    return res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error('Error forwarding post request:', {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data
+    });
+
+    if (error.response) {
+      return res.status(error.response.status).json(error.response.data);
+    }
+
+    return next(error);
+  }
+}
+
+async function editOneTicket(req, res, next) {
+  const id = parseInt(req.query.id, 10);
+  const content = req.query.content;
+
+  if (!id || !content) {
+    return res.status(400).json({ error: 'Ticket id and content is required as a query param' });
+  }
+
+  try {
+    const techSupServiceUrl = `${process.env.TECH_SUP_SERVICE_URL}/techsupportedit?id=${id}&content=${content}`;
+    const response = await axios.patch(techSupServiceUrl);
+    return res.status(response.status).json(response.data);
+  } catch (error) {
+    console.error('Error forwarding patch request:', {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data
+    });
+
+    if (error.response) {
+      return res.status(error.response.status).json(error.response.data);
+    }
+
+    return next(error);
+  }
+}
+
 async function delOneTicket(req, res, next) {
   const id = req.query.id;
 
@@ -76,4 +131,4 @@ async function delOneTicket(req, res, next) {
 }
 
 
-export { forwardAuthRequests, getTechSup, delOneTicket };
+export { forwardAuthRequests, getTechSup, delOneTicket, addOneTicket, editOneTicket };

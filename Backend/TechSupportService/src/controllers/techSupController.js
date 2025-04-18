@@ -1,4 +1,4 @@
-import { getAllTechReports, deleteDbTicket } from "../services/techSupportService.js";
+import { getAllTechReports, deleteDbTicket, addDbTicket, editDbTicket } from "../services/techSupportService.js";
 
 // get all tickets.
 export async function getTechSuppot(req, res) {
@@ -18,6 +18,52 @@ export async function getTechSuppot(req, res) {
             error: true,
             message
         });
+    }
+}
+
+// add single ticket.
+export async function addTicket(req, res) {
+    const name = req.query.name;
+    const content = req.query.content;
+
+    if (!name || !content) {
+        return res.status(400).json({ error: 'Name and content must be not null values.' });
+    }
+
+    try {
+        const result = await addDbTicket(name, content);
+
+        if (result.success) {
+        return res.status(200).json(result);
+        } else {
+        return res.status(404).json({ error: result.error });
+        }
+    } catch (error) {
+        console.error('Error adding ticket:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+// edit sigle ticket.
+export async function editTicket(req, res) {
+    const id = parseInt(req.query.id, 10);
+    const content = req.query.content;
+
+    if (!id || !content) {
+        return res.status(400).json({ error: 'id and content must be not null values.' });
+    }
+
+    try {
+        const result = await editDbTicket(id, content);
+
+        if (result.success) {
+        return res.status(200).json(result);
+        } else {
+        return res.status(404).json({ error: result.error });
+        }
+    } catch (error) {
+        console.error('Error editing ticket:', error);
+        return res.status(500).json({ error: 'Internal server error' });
     }
 }
 
