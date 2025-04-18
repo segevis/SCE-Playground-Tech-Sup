@@ -49,4 +49,23 @@ async function getTechSup(req, res, next) {
   }
 }
 
-export { forwardAuthRequests, getTechSup };
+async function delOneTicket(req, res, next) {
+
+  try {
+    const { id } = req.params;
+    const techSupServiceUrl = `${process.env.TECH_SUP_SERVICE_URL}/techsupportdel/${id}`;
+    const response = await axios.delete(techSupServiceUrl);
+    return res.status(response.status).json(response.data);
+  } catch (error) {
+    // Error from the microservice or network
+    console.log('Error while forwarding request to techSup service. Error: ', error, error?.data);
+
+    if (error.response) {
+      // The microservice responded with an error status
+      return res.status(error.response.status).json(error.response.data);
+    }
+    return next(error);
+  }
+}
+
+export { forwardAuthRequests, getTechSup, delOneTicket };
