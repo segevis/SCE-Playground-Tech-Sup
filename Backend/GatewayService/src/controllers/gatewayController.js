@@ -50,22 +50,30 @@ async function getTechSup(req, res, next) {
 }
 
 async function delOneTicket(req, res, next) {
+  const id = req.query.id;
+
+  if (!id) {
+    return res.status(400).json({ error: 'Ticket ID is required as a query param ?id=1' });
+  }
 
   try {
-    const { id } = req.params;
-    const techSupServiceUrl = `${process.env.TECH_SUP_SERVICE_URL}/techsupportdel/${id}`;
+    const techSupServiceUrl = `${process.env.TECH_SUP_SERVICE_URL}/techsupportdel?id=${id}`;
     const response = await axios.delete(techSupServiceUrl);
     return res.status(response.status).json(response.data);
   } catch (error) {
-    // Error from the microservice or network
-    console.log('Error while forwarding request to techSup service. Error: ', error, error?.data);
+    console.error('Error forwarding delete request:', {
+      message: error.message,
+      status: error.response?.status,
+      data: error.response?.data
+    });
 
     if (error.response) {
-      // The microservice responded with an error status
       return res.status(error.response.status).json(error.response.data);
     }
+
     return next(error);
   }
 }
+
 
 export { forwardAuthRequests, getTechSup, delOneTicket };

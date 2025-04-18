@@ -7,6 +7,6 @@ const router = Router();
 // Forward all /auth/* requests
 router.use('/auth', forwardAuthRequests);
 router.get('/techsupport', getTechSup);
-router.delete('/techsupport', delOneTicket);
+router.delete('/techsupportdel', delOneTicket);
 
 export default router;
