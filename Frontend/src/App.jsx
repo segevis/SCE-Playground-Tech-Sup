@@ -1,18 +1,25 @@
 // frontend/src/App.jsx
 import React, { useContext } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import ProductsPage from './pages/ProductsPage.jsx';
-import { AuthProvider, AuthContext } from './store/AuthContext.jsx';
+import { StoreProvider, StoreContext } from './store/StoreContext.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import './App.css'; // Import the new CSS
+import ReportsPage from './pages/ReportsPage.jsx';
 
 function Navbar() {
-  const { user } = useContext(AuthContext);
+  const { user, signOut } = useContext(StoreContext);
+  const navigate = useNavigate();
 
-  // If user exists, create an initial 
+  function signUserOut() {
+    signOut();
+    navigate('/signin');
+  }
+
+  // If user exists, create an initial
   const userInitial = user && user.firstName ? user.firstName[0] : user && user.email ? user.email[0] : null;
 
   return (
@@ -29,7 +36,7 @@ function Navbar() {
       <div className='nav-right'>
         <div className='nav-links'>
           <Link to='/'>Home</Link>
-          <Link to='/signin'>Sign In</Link>
+          {!user ? <Link to='/signin'>Sign In</Link> : <a onClick={signUserOut}>Sign out</a>}
           <Link to='/signup'>Sign Up</Link>
           <Link to='/products'>Products</Link>
         </div>
@@ -42,7 +49,7 @@ function Navbar() {
 
 function App() {
   return (
-    <AuthProvider>
+    <StoreProvider>
       <BrowserRouter>
         <Navbar />
         <div style={{ backgroundImage: 'url(/background.png)' }}>
@@ -50,6 +57,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/signin' element={<SignInPage />} />
             <Route path='/signup' element={<SignUpPage />} />
+            <Route path='/reports' element={<ReportsPage />} />
             <Route
               path='/products'
               element={
@@ -61,7 +69,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    </AuthProvider>
+    </StoreProvider>
   );
 }
 

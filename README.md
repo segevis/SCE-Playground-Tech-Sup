@@ -1,1 +1,1 @@
-Hello to SCE Playground
+SCE Playground
