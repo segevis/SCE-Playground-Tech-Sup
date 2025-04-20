@@ -20,10 +20,16 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
+        working-directory: Backend/TechSupportService
+    
       - name: Run linter
         run: npm run lint
+        working-directory: Backend/TechSupportService
+    
       - name: Run tests
         run: npm run test
+        working-directory: Backend/TechSupportService
+        
 
   deploy-server:
     needs: [build-and-test]
