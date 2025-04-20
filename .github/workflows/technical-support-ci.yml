@@ -1,14 +1,10 @@
 name: CI - Technical Support
 
 on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - 'Backend/TechSupportService/**'
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - 'Backend/TechSupportService/**'
+    push:
+      branches: [ "main" ]
+    pull_request:
+      branches: [ "main" ]
 
 jobs:
   build-and-test:
