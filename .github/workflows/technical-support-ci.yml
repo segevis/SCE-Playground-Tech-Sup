@@ -1,0 +1,47 @@
+name: CI - Technical Support
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'Backend/TechSupportService/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'Backend/TechSupportService/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          cd Backend/TechSupportService
+          npm install
+
+      - name: Run Linter
+        run: |
+          cd Backend/TechSupportService
+          npm run lint
+
+      - name: Run Tests
+        run: |
+          cd Backend/TechSupportService
+          npm run test
+
+  deploy-server:
+    needs: [build-and-test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: activate deploy hook
+        run: curl https://api.render.com/deploy/srv-d0111q49c44c73cp26lg?key=3dF5mW8iD-E
