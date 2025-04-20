@@ -12,31 +12,22 @@ on:
 
 jobs:
   build-and-test:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-
+          node-version: 18.x
+          cache: 'npm'
       - name: Install dependencies
-        run: |
-          cd Backend/TechSupportService
-          npm install
-
-      - name: Run Linter
-        run: |
-          cd Backend/TechSupportService
-          npm run lint
-
-      - name: Run Tests
-        run: |
-          cd Backend/TechSupportService
-          npm run test
+        run: npm install
+      - name: Run linter
+        run: npm run lint
+      - name: Run tests
+        run: npm run test
 
   deploy-server:
     needs: [build-and-test]
