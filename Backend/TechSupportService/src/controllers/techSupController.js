@@ -32,9 +32,10 @@ export async function addTicket(req, res) {
 
     try {
         const result = await addDbTicket(name, content);
+        //console.log("Test!" + result.ticket.id);
 
         if (result.success) {
-        return res.status(200).json(result);
+        return res.status(200).json(result.ticket.id);
         } else {
         return res.status(404).json({ error: result.error });
         }

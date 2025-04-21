@@ -5,10 +5,12 @@ import HomePage from './pages/HomePage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import ProductsPage from './pages/ProductsPage.jsx';
+import TechSupportPage from './pages/TechSupportPage.jsx';
 import { StoreProvider, StoreContext } from './store/StoreContext.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import './App.css'; // Import the new CSS
 import ReportsPage from './pages/ReportsPage.jsx';
+import TechSupport from './pages/TechSupportPage.jsx';
 
 function Navbar() {
   const { user, signOut } = useContext(StoreContext);
@@ -58,6 +60,7 @@ function App() {
             <Route path='/signin' element={<SignInPage />} />
             <Route path='/signup' element={<SignUpPage />} />
             <Route path='/reports' element={<ReportsPage />} />
+            <Route path='/techsupport' element={<TechSupportPage />} />
             <Route
               path='/products'
               element={

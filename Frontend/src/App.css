@@ -162,3 +162,23 @@ body {
   text-align: center;
   margin-bottom: 0.5rem;
 }
+
+
+/* =====================
+   Tech-Sup Pages
+===================== */
+.btn-blue-tech {
+  background-color: #1e90ff; /* DodgerBlue */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-blue-tech:hover {
+  background-color: #1c86ee; /* Slightly darker blue */
+}
