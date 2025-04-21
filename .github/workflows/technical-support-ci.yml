@@ -10,9 +10,6 @@ jobs:
   build-and-test:
 
     runs-on: ubuntu-latest
-    
-    env:
-      DB_CON_STR: ${{ secrets.DB_CON_STR }}
 
     steps:
       - uses: actions/checkout@v4
