@@ -107,7 +107,7 @@ describe('Authentication Service Tests', () => {
           .send({ token })
           .end((innerErr, innerRes) => {
             expect(innerRes).to.have.status(200);
-            expect(innerRes.body).to.have.property('valid').equal(true);
+            expect(innerRes.body).to.have.property('isValid').equal(true);
             done();
           });
       });
