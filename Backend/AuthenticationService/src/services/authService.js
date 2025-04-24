@@ -62,7 +62,7 @@ export const authService = {
       { expiresIn: '7d' }
     );
 
-    return token;
+    return user;
   },
 
   async validateToken(token) {
