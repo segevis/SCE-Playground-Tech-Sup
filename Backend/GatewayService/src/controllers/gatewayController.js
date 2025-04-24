@@ -31,4 +31,12 @@ const forwardAuthRequests = async (req, res, next) => {
   }
 };
 
+export async function ping(req, res) {
+  try {
+    return res.status(200).json({ message: 'pong' });
+  } catch (error) {
+    return next(error);
+  }
+}
+
 export { forwardAuthRequests };
