@@ -25,7 +25,7 @@ export default [
       "semi": ["error", "always"],
       "quotes": ["error", "single", { "avoidEscape": true }],
       "eqeqeq": ["warn", "always"],
-      "no-console": ["warn"],
+      // "no-console": ["warn"],
       "prefer-const": ["warn"],
       "no-var": ["error"],
       "arrow-body-style": ["warn", "as-needed"],
