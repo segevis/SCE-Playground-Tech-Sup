@@ -61,8 +61,17 @@ export const authService = {
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
-
-    return user;
+    // Return user without password
+    // and with token
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName
+      },
+      token
+    };
   },
 
   async validateToken(token) {
