@@ -1,18 +1,25 @@
-// HomePage.test.jsx
+// tests/HomePage.test.jsx
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import HomePage from '../src/pages/HomePage.jsx';
 import { BrowserRouter } from 'react-router-dom';
+
+import HomePage from '../src/pages/HomePage.jsx';
+import { StoreContext } from '../src/store/StoreContext.jsx';
 
 describe('HomePage', () => {
   test('renders the welcome message', () => {
+    const mockContext = { user: { firstName: 'Alice' } };
+
     render(
-      <BrowserRouter>
-        <HomePage />
-      </BrowserRouter>
+      <StoreContext.Provider value={mockContext}>
+        <BrowserRouter>
+          <HomePage />
+        </BrowserRouter>
+      </StoreContext.Provider>
     );
-    // screen is your access point to the rendered DOM
-    expect(screen.getByText('Welcome to SCE Software Ltd.')).toBeInTheDocument();
+
+    // ✅ contains the expected text somewhere in the heading
+    expect(screen.getByText(/Welcome to SCE Software Ltd\./i)).toBeInTheDocument();
   });
 });
