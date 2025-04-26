@@ -11,7 +11,7 @@ const forwardAuthRequests = async (req, res, next) => {
     console.log('Forwarding request to ' + url, ' body: ' + req.body);
 
     // Forward the exact method and body
-    const response = await axios({
+    const response = await axios.request({
       method: req.method,
       url,
       data: req.body
