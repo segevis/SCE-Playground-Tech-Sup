@@ -42,9 +42,16 @@ export default function SignInPage() {
             navigate('/');
             return;
           }
+          else {
+            // Token is invalid, redirect to sign-in page
+            console.log('Token is invalid');
+          }
         } catch (err) {
           console.error('Token validation failed:', err);
         }
+      }
+      else {
+        console.log('No token found');
       }
       // If token is invalid or not present, redirect to sign-in page
       console.log('Token is invalid or not present, redirecting to sign-in page');
@@ -53,7 +60,7 @@ export default function SignInPage() {
     };
     validateToken();
   }, [token, signOut]);
-  
+
   return (
     <div className='auth-container'>
       {/* LOADER – sits above everything else when active */}
