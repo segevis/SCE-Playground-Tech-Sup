@@ -1,4 +1,4 @@
-import { getAllTechReports, deleteDbTicket, addDbTicket, editDbTicket } from "../services/techSupportService.js";
+import { getAllTechReports, deleteDbTicket, addDbTicket, editDbTicket } from '../services/techSupportService.js';
 
 // get all tickets.
 export async function getTechSuppot(req, res) {

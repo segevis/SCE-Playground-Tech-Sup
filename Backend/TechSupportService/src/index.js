@@ -16,5 +16,5 @@ app.patch('/techsupportedit', editTicket);
 app.delete('/techsupportdel', deleteTicket);
 
 app.listen(port, ()=> {
-    console.log("[ ✅ ] Tech-Support Service is running at port: " + port);
-})
+    console.log(`[ ✅ ] Tech-Support Service is running at port: ${  port}`);
+});
