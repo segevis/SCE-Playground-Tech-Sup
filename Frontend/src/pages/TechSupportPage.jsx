@@ -31,7 +31,7 @@ export default function TechSupport() {
 
   return (
     <div className='home-container'>
-      <h1>Welcome {user?.user.firstName}, to Tech Support</h1>
+      <h1>Welcome {user?.firstName}, to Tech Support</h1>
         <form onSubmit={handleSubmit}>
             <div className='home-images'>
             <input
@@ -53,7 +53,7 @@ export default function TechSupport() {
             </div>
             <br />
             <button className="btn-blue-tech" type="submit">Post</button>
-            {addedId && (<h2>Added new post with ID: {addedId}, Welcome {user?.user.firstName}</h2>)}
+            {addedId && (<h2>Added new post with ID: {addedId}, Welcome {user?.firstName}</h2>)}
             {error && (<p style={{ color: 'red' }}>{error}</p>)}
         </form>
     </div>
