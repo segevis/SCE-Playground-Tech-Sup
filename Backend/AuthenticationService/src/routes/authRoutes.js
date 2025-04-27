@@ -12,7 +12,7 @@ const router = Router();
 router.post('/signup', signup);
 router.post('/signin', signin);
 router.post('/validate-token', validateToken);
-router.get('/ping', validateToken);
+router.get('/ping', ping);
 router.delete('/user', deleteUser);
 
 export default router;
