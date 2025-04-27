@@ -1,5 +1,5 @@
 // frontend/src/App.jsx
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import HomePage from './pages/HomePage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
@@ -11,21 +11,42 @@ import './App.css'; // Import the new CSS
 import ReportsPage from './pages/ReportsPage.jsx';
 
 function Navbar() {
-  const { user, signOut } = useContext(StoreContext);
+  const { user, signOut, isLoading, isValidating } = useContext(StoreContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && !isValidating && !user) {
+      console.log('No valid user found after validation. Redirecting to /signin');
+      navigate('/signin');
+    }
+  }, [isLoading, isValidating, user, navigate]);
 
   function signUserOut() {
     signOut();
     navigate('/signin');
   }
 
-  // If user exists, create an initial
   const userInitial = user && user.firstName ? user.firstName[0] : user && user.email ? user.email[0] : null;
+
+  // While loading/validating, you can show a spinner or skeleton here
+  if (isLoading || isValidating) {
+    return (
+      <div className='navbar'>
+        <div className='nav-left'>
+          <img
+            className='university-icon'
+            src='https://www.sce.ac.il/ver/14/tpl/website/img/SamiSH-logo_2.png'
+            alt='University Icon'
+          />
+        </div>
+        <div className='nav-right'>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className='navbar'>
       <div className='nav-left'>
-        {/* University icon (replace with your own image path or URL) */}
         <img
           className='university-icon'
           src='https://www.sce.ac.il/ver/14/tpl/website/img/SamiSH-logo_2.png'
@@ -46,7 +67,6 @@ function Navbar() {
             <a onClick={signUserOut}>Sign out</a>
           )}
         </div>
-        {/* If logged in, show user circle */}
         {user && <div className='user-circle'>{userInitial}</div>}
       </div>
     </div>
