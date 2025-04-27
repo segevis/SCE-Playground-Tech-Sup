@@ -12,14 +12,14 @@ export default function TechSupport() {
   const [error, setError] = useState(null);
   const [addedId, setAddedId] = useState(null);
 
-  let tempUrl = "/techsupportadd/?name=";
+  let tempUrl = '/techsupportadd/?name=';
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
 
     try {
-      tempUrl += name + "&content=" + content;
+      tempUrl += name +'&content=' + content;
       const response = await api.post(tempUrl);
       const { id } = response.data;
       setAddedId(response.data);
