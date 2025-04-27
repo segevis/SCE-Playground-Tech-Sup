@@ -4,7 +4,8 @@ import {
   signup,
   signin,
   validateToken,
-  deleteUser
+  deleteUser,
+  ping
 } from '../controllers/authController.js';
 
 const router = Router();
