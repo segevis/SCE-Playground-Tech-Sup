@@ -6,7 +6,7 @@ import { StoreContext } from '../store/StoreContext';
 export default function HomePage() {
   const navigate = useNavigate();
   const { user } = useContext(StoreContext);
-  console.log('user', user);
+  console.log('user:', user);
 
   return (
     <div className='home-container'>

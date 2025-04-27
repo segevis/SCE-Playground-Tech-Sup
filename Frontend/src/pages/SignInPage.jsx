@@ -30,30 +30,6 @@ export default function SignInPage() {
     }
   }
 
-  // On initial load, check if user is already logged in
-  useEffect(() => {
-    const validateToken = async () => {
-      if (token) {
-        try {
-          const { isValid } = await api.post('/auth/validate-token', { token });
-          if (isValid) {
-            // Token is valid, user is already logged in
-            console.log('Token is valid, user is already logged in'); 
-            navigate('/');
-            return;
-          }
-        } catch (err) {
-          console.error('Token validation failed:', err);
-        }
-      }
-      // If token is invalid or not present, redirect to sign-in page
-      console.log('Token is invalid or not present, redirecting to sign-in page');
-      signOut();
-      navigate('/signin');
-    };
-    validateToken();
-  }, [token, signOut]);
-  
   return (
     <div className='auth-container'>
       {/* LOADER – sits above everything else when active */}
