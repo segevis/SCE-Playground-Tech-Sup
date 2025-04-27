@@ -1,14 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react';
-import api from '../services/api.js'; 
-import { useNavigate } from "react-router-dom";
+import api from '../services/api.js';
 
 export const StoreContext = createContext();
 
 export function StoreProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); 
-  const [isValidating, setIsValidating] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
+  const [isValidating, setIsValidating] = useState(true);
 
   // 1. Load from storage
   useEffect(() => {
@@ -81,7 +80,7 @@ export function StoreProvider({ children }) {
     signIn,
     signOut,
     isLoading,
-    isValidating,
+    isValidating
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
