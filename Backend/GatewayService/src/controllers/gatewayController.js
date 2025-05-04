@@ -31,6 +31,20 @@ const forwardAuthRequests = async (req, res, next) => {
   }
 };
 
+
+
+export async function ping(req, res, next) {
+  try {
+    return res.status(200).json({ message: 'pong' });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+
+// Tech-Sup.
+// #######################################
+
 async function getTechSup(req, res, next) {
 
   try {
@@ -45,14 +59,6 @@ async function getTechSup(req, res, next) {
       // The microservice responded with an error status
       return res.status(error.response.status).json(error.response.data);
     }
-  }
-}
-
-export async function ping(req, res, next) {
-  try {
-    return res.status(200).json({ message: 'pong' });
-  } catch (error) {
-    return next(error);
   }
 }
 
@@ -136,6 +142,9 @@ async function delOneTicket(req, res, next) {
     return next(error);
   }
 }
+
+// Tech-Sup.
+// #######################################
 
 
 export { getTechSup, delOneTicket, addOneTicket, editOneTicket }; // tech-sup
