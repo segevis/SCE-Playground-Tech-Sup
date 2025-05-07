@@ -15,15 +15,26 @@ const pool = new Pool({
 
 // Initialize DB: create table if it doesn't exist
 async function initDB() {
-  const query = `
+  const requests = `
     CREATE TABLE IF NOT EXISTS tickets (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
       content TEXT NOT NULL
     );
   `;
-  await pool.query(query);
+
+  const agents = `
+    CREATE TABLE IF NOT EXISTS agents (
+      id SERIAL PRIMARY KEY,
+      email TEXT NOT NULL
+    );
+  `;
+
+
+  await pool.query(requests);
+  await pool.query(agents);
   console.log("[ ✅ ] Table 'tickets' is ready.");
+  console.log("[ ✅ ] Table 'agents' is ready.");
 }
 
 // Call it immediately
@@ -109,6 +120,64 @@ export async function deleteOneDbTicket(id) {
     };
   } catch (err) {
     console.error('[ ⚡ ] Error deleting ticket:', err.message);
+    return {
+      success: false,
+      error: err.message,
+    };
+  }
+}
+
+export async function isAgent(email) {
+  try {
+    const res = await pool.query(
+      'SELECT FROM agents WHERE email = $1 RETURNING *',
+      [email]
+    );
+
+    if (res.rowCount === 0) {
+      return {
+        success: true,
+        agent: false,
+      };
+    }
+    else {
+      return {
+        success: true,
+        agent: true,
+      };
+    }
+
+  } catch (err) {
+    console.error('[ ⚡ ] Error finding agent:', err.message);
+    return {
+      success: false,
+      error: err.message,
+    };
+  }
+}
+
+export async function addAgent(email) {
+  try {
+    const res = await pool.query(
+      'INSERT INTO agents (email) VALUES ($1) RETURNING *',
+      [email]
+    );
+
+    if (res.rowCount > 0) {
+      return {
+        success: true,
+        agent: email,
+      };
+    }
+    else {
+      return {
+        success: true,
+        agent: 0,
+      };
+    }
+
+  } catch (err) {
+    console.error('[ ⚡ ] Error adding agent:', err.message);
     return {
       success: false,
       error: err.message,

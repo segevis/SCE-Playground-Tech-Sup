@@ -14,6 +14,8 @@ app.get('/techsupport', getTechSuppot);
 app.post('/techsupportadd', addTicket);
 app.patch('/techsupportedit', editTicket);
 app.delete('/techsupportdel', deleteTicket);
+app.get('/techsupportisagent', ADDMELATER);
+app.post('/techsupportaddagent', ADDMELATER);
 
 app.listen(port, ()=> {
     console.log(`[ ✅ ] Tech-Support Service is running at port: ${  port}`);
