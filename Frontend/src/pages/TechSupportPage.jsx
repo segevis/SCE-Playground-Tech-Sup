@@ -12,6 +12,9 @@ export default function TechSupport() {
   const [error, setError] = useState(null);
   const [addedId, setAddedId] = useState(null);
 
+  // page state modifier.
+  const [pageState, setPageState] = useState(null);
+
   let tempUrl = '/techsupportadd/?name=';
 
   async function handleSubmit(e) {
@@ -28,6 +31,31 @@ export default function TechSupport() {
       setError(err.response?.data?.message || 'post request failed');
     }
   }
+
+  async function getPageType() {
+    if (pageState === 1)
+      setPageState(0);
+    else
+      setPageState(1);
+  }
+
+  //if (pState?.agent === true) {
+  if (pageState === 1) {
+    return (
+      <div>
+        <h1> You are an agent! {user?.email}. </h1>
+        <button type="submit" onClick={getPageType}>Test ME!</button>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1> You are an user! {user?.email}. </h1>
+        <button type="submit" onClick={getPageType}>Test ME!</button>
+      </div>
+    );
+  }
+  setPageState();
 
   return (
     <div className='home-container'>
