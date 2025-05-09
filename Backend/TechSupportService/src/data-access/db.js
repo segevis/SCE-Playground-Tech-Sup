@@ -127,7 +127,7 @@ export async function deleteOneDbTicket(id) {
   }
 }
 
-export async function isAgent(email) {
+export async function isDbAgent(email) {
   try {
     const res = await pool.query(
       'SELECT FROM agents WHERE email = $1 RETURNING *',
@@ -156,7 +156,7 @@ export async function isAgent(email) {
   }
 }
 
-export async function addAgent(email) {
+export async function addDbAgent(email) {
   try {
     const res = await pool.query(
       'INSERT INTO agents (email) VALUES ($1) RETURNING *',

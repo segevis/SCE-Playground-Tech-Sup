@@ -15,3 +15,11 @@ export async function editDbTicket(id, content) {
 export async function deleteDbTicket(id) {
     return await db.deleteOneDbTicket(id);
 }
+
+export async function isDbAgentexist(email) {
+    return await db.isDbAgent(email);
+}
+
+export async function addOneDbAgent(email) {
+    return await db.addDbAgent(email);
+}
