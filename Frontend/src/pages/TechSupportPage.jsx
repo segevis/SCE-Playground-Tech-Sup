@@ -36,15 +36,6 @@ export default function TechSupport() {
     }
   }
 
-  async function getPageType() {
-    const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
-
-    if (res?.data.agent === true)
-      setPageState(agentPage);
-    else
-      setPageState(userPage);
-  }
-
   useEffect(() => {
   async function getPageType() {
 
