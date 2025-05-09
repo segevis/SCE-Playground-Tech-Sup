@@ -21,21 +21,6 @@ export default function TechSupport() {
 
   let tempUrl = '/ts/techsupportadd/?name=';
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError(null);
-
-    try {
-      tempUrl += name +'&content=' + content;
-      const response = await api.post(tempUrl);
-      const { id } = response.data;
-      setAddedId(response.data);
-      //console.log(response.data);
-    } catch (err) {
-      setError(err.response?.data?.message || 'post request failed');
-    }
-  }
-
   useEffect(() => {
   async function getPageType() {
 
