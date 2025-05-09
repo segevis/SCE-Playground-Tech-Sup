@@ -1,61 +1,83 @@
-import { useContext } from 'react';
-import { StoreContext } from '../store/StoreContext';
-import React, { useState } from 'react';
-import api from '../services/api.js';
-import '../App.css';
+import React, { useEffect, useState, useContext } from "react";
+import { StoreContext } from "../store/StoreContext";
+import api from "../services/api.js";
+import "../App.css";
 
-export default function TechSupport() {
+export default function TechSupportPage() {
   const { user } = useContext(StoreContext);
-
-  const [name, setName] = useState('');
-  const [content, setContent] = useState('');
+  const [requests, setRequests] = useState([]);
   const [error, setError] = useState(null);
-  const [addedId, setAddedId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  let tempUrl = '/techsupportadd/?name=';
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError(null);
-
-    try {
-      tempUrl += name +'&content=' + content;
-      const response = await api.post(tempUrl);
-      const { id } = response.data;
-      setAddedId(response.data);
-      //console.log(response.data);
-    } catch (err) {
-      setError(err.response?.data?.message || 'post request failed');
+  // Loading requests from the DB
+  useEffect(() => {
+    async function fetchRequests() {
+      try {
+        const res = await api.get("/techsupport");
+        setRequests(res.data);
+      } catch (err) {
+        console.error(err);
+        setError("Failed to load support requests");
+      } finally {
+        setIsLoading(false); // סיים לטעון
+      }
     }
-  }
+
+    fetchRequests();
+  }, []);
+
+  // Function to determine color by content (fake status)
+  const getStatusColor = (content) => {
+    const text = content.toLowerCase();
+    if (text.includes("crash") || text.includes("security")) return "green"; // Opened
+    if (text.includes("performance") || text.includes("install"))
+      return "orange"; // In Progress
+    return "red"; // Closed (default)
+  };
+
+  // Clicking the Add Request button
+  const handleAddRequest = () => {
+    alert("Add Request button was clicked");
+  };
 
   return (
-    <div className='home-container'>
-      <h1>Welcome {user?.firstName}, to Tech Support</h1>
-        <form onSubmit={handleSubmit}>
-            <div className='home-images'>
-            <input
-                    type="name"
-                    value={name} 
-                    placeholder="name"
-                    onChange={e => setName(e.target.value)}
-                    required 
-                />
-                </div>
-                <div>
-                <input 
-                    type="content"
-                    value={content} 
-                    placeholder="content"
-                    onChange={e => setContent(e.target.value)}
-                    required 
-                />
+    <div className="client-requests-page">
+      <h2 className="client-requests-page-title">
+        {isLoading ? "Loading..." : "My Requests"}
+      </h2>
+
+      {error && <p className="error">{error}</p>}
+
+      {isLoading ? (
+        <div className="client-page-spinner"></div>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : requests.length === 0 ? (
+        <p className="no-requests">No requests yet.</p>
+      ) : (
+        <div className="requests-list">
+          {requests.map((req) => (
+            <div
+              key={req.id}
+              className="request-row"
+              onClick={() => alert(`Request #${req.id} clicked`)}
+            >
+              <span
+                className={`status-circle ${getStatusColor(req.content)}`}
+              ></span>
+              <span className="request-category">{req.content}</span>
+              <span className="request-id"> Request #{req.id}</span>
             </div>
-            <br />
-            <button className="btn-blue-tech" type="submit">Post</button>
-            {addedId && (<h2>Added new post with ID: {addedId}, Welcome {user?.firstName}</h2>)}
-            {error && (<p style={{ color: 'red' }}>{error}</p>)}
-        </form>
+          ))}
+        </div>
+      )}
+      {!isLoading && (
+        <div className="add-request-container">
+          <button className="add-request-btn" onClick={handleAddRequest}>
+            Add Request +
+          </button>
+        </div>
+      )}
     </div>
   );
 }
