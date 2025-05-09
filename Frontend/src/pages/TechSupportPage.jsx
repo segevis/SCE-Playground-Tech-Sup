@@ -15,9 +15,7 @@ export default function TechSupportPage() {
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
   const [addedId, setAddedId] = useState(null);
-  
   const [requests, setRequests] = useState([]);
-  const [error, setError] = useState(null);
 
   // page state modifier.
   const [pageState, setPageState] = useState(5);
@@ -33,7 +31,7 @@ export default function TechSupportPage() {
     const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
 
     if (res?.data.agent === true)
-      setPageState(agentPage);
+      setPageState(userPage); // change back.
     else
       setPageState(userPage);
   }
@@ -50,8 +48,6 @@ export default function TechSupportPage() {
       } catch (err) {
         console.error(err);
         setError("Failed to load support requests");
-      } finally {
-        setIsLoading(false); // סיים לטעון
       }
     }
 
@@ -80,12 +76,12 @@ export default function TechSupportPage() {
     return (
       <div className="client-requests-page">
       <h2 className="client-requests-page-title">
-        {isLoading ? "Loading..." : "My Requests"}
+        {"My Requests"}
       </h2>
 
       {error && <p className="error">{error}</p>}
 
-      {isLoading ? (
+      {pageState === 5 ? (
         <div className="client-page-spinner"></div>
       ) : error ? (
         <p className="error">{error}</p>
@@ -108,14 +104,15 @@ export default function TechSupportPage() {
           ))}
         </div>
       )}
-      {!isLoading && (
+      {pageState !== 5 && (
         <div className="add-request-container">
           <button className="add-request-btn" onClick={handleAddRequest}>
             Add Request +
           </button>
         </div>
-    );
-  }
+      )}
+  </div>
+  )}
 
   return (
     <div className='home-container'>
