@@ -1,6 +1,6 @@
 // gateway-service/src/routes/gatewayRoutes.js
 import { Router } from 'express';
-import { getTechSup, delOneTicket, addOneTicket, editOneTicket } from '../controllers/gatewayController.js'; // tech-sup
+import { forwardTechSupportRequests } from '../controllers/gatewayController.js'; // tech-sup
 import { forwardAuthRequests, ping } from '../controllers/gatewayController.js';
 
 const router = Router();
@@ -9,10 +9,7 @@ const router = Router();
 router.use('/auth', forwardAuthRequests);
 router.get('/ping', ping);
 
-// tech-sup.
-router.get('/techsupport', getTechSup);
-router.post('/techsupportadd', addOneTicket);
-router.patch('/techsupportedit', editOneTicket);
-router.delete('/techsupportdel', delOneTicket);
+// Forward all /ts/* requests - for tech support.
+router.use('/ts', forwardTechSupportRequests)
 
 export default router;

@@ -130,9 +130,11 @@ export async function deleteOneDbTicket(id) {
 export async function isDbAgent(email) {
   try {
     const res = await pool.query(
-      'SELECT FROM agents WHERE email = $1 RETURNING *',
+      'SELECT FROM agents WHERE email = $1',
       [email]
     );
+
+    console.log('[ 🔎 ] Recived look for agent req');
 
     if (res.rowCount === 0) {
       return {
@@ -162,6 +164,8 @@ export async function addDbAgent(email) {
       'INSERT INTO agents (email) VALUES ($1) RETURNING *',
       [email]
     );
+
+    console.log('[ 🗽 ] Recived add new agent req');
 
     if (res.rowCount > 0) {
       return {

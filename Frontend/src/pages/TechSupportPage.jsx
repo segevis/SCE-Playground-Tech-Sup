@@ -1,11 +1,15 @@
 import { useContext } from 'react';
 import { StoreContext } from '../store/StoreContext';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../services/api.js';
 import '../App.css';
 
 export default function TechSupport() {
   const { user } = useContext(StoreContext);
+
+  const agentPage = 1;
+  const userPage = 2;
+  const loadingScreen = 5;
 
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
@@ -13,9 +17,9 @@ export default function TechSupport() {
   const [addedId, setAddedId] = useState(null);
 
   // page state modifier.
-  const [pageState, setPageState] = useState(null);
+  const [pageState, setPageState] = useState(5);
 
-  let tempUrl = '/techsupportadd/?name=';
+  let tempUrl = '/ts/techsupportadd/?name=';
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -33,57 +37,51 @@ export default function TechSupport() {
   }
 
   async function getPageType() {
-    if (pageState === 1)
-      setPageState(0);
+    const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
+
+    if (res?.data.agent === true)
+      setPageState(agentPage);
     else
-      setPageState(1);
+      setPageState(userPage);
   }
 
-  //if (pState?.agent === true) {
-  if (pageState === 1) {
+  useEffect(() => {
+  async function getPageType() {
+
+    if (!user?.email) // ignore strict mode triple call.
+      return;
+
+    const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
+
+    if (res?.data.agent === true)
+      setPageState(agentPage);
+    else
+      setPageState(userPage);
+  }
+
+  getPageType();
+}, [user?.email]);
+
+  if (pageState === agentPage) {
     return (
-      <div>
+      <div className='home-container'>
         <h1> You are an agent! {user?.email}. </h1>
-        <button type="submit" onClick={getPageType}>Test ME!</button>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <h1> You are an user! {user?.email}. </h1>
-        <button type="submit" onClick={getPageType}>Test ME!</button>
       </div>
     );
   }
-  setPageState();
+
+  if (pageState === userPage) {
+    return (
+      <div className='home-container'>
+        <h1> You are an user! {user?.email}. </h1>
+      </div>
+    );
+  }
 
   return (
     <div className='home-container'>
-      <h1>Welcome {user?.firstName}, to Tech Support</h1>
-        <form onSubmit={handleSubmit}>
-            <div className='home-images'>
-            <input
-                    type="name"
-                    value={name} 
-                    placeholder="name"
-                    onChange={e => setName(e.target.value)}
-                    required 
-                />
-                </div>
-                <div>
-                <input 
-                    type="content"
-                    value={content} 
-                    placeholder="content"
-                    onChange={e => setContent(e.target.value)}
-                    required 
-                />
-            </div>
-            <br />
-            <button className="btn-blue-tech" type="submit">Post</button>
-            {addedId && (<h2>Added new post with ID: {addedId}, Welcome {user?.firstName}</h2>)}
-            {error && (<p style={{ color: 'red' }}>{error}</p>)}
-        </form>
+      <h2>Loading...</h2>
+        <img src='/loading-ts.gif'></img>
     </div>
   );
 }
