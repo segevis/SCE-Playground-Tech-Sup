@@ -10,6 +10,7 @@ export default function TechSupportPage() {
   // Page states
   const agentPage = 1;
   const userPage = 2;
+  const addRequestPage = 3;
   const loadingScreen = 5;
 
   const [name, setName] = useState('');
@@ -71,6 +72,14 @@ export default function TechSupportPage() {
     return (
       <div className='home-container'>
         <h1> You are an agent! {user?.email}. </h1>
+      </div>
+    );
+  }
+
+  if (pageState === addRequestPage) {
+    return (
+      <div>
+        
       </div>
     );
   }

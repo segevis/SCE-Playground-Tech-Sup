@@ -10,6 +10,6 @@ router.use('/auth', forwardAuthRequests);
 router.get('/ping', ping);
 
 // Forward all /ts/* requests - for tech support.
-router.use('/ts', forwardTechSupportRequests)
+router.use('/ts', forwardTechSupportRequests);
 
 export default router;
