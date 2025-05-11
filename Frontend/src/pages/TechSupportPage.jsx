@@ -86,33 +86,33 @@ export default function TechSupportPage() {
 
   if (pageState === userPage) {
     return (
-      <div className="client-requests-page">
-        <h2 className="client-requests-page-title">My Requests</h2>
+      <div className="tech-client-requests-page">
+        <h2 className="tech-client-requests-page-title">My Requests</h2>
     
-        {error && <p className="error">{error}</p>}
+        {error && <p className="tech-error">{error}</p>}
     
         {requests.length === 0 ? (
-          <p className="no-requests">No requests yet.</p>
+          <p className="tech-no-requests">No requests yet.</p>
         ) : (
-          <div className="requests-list">
+          <div className="tech-requests-list">
             {requests.map((req) => (
               <div
                 key={req.id}
-                className="request-row"
+                className="tech-request-row"
                 onClick={() => alert(`Request #${req.id} clicked`)}
               >
                 <span
-                  className={`status-circle ${getStatusColor(req.content)}`}
+                  className={`tech-status-circle ${getStatusColor(req.content)}`}
                 ></span>
-                <span className="request-category">{req.content}</span>
-                <span className="request-id"> Request #{req.id}</span>
+                <span className="tech-request-category">{req.content}</span>
+                <span className="tech-request-id"> Request #{req.id}</span>
               </div>
             ))}
           </div>
         )}
     
-        <div className="add-request-container">
-          <button className="add-request-btn" onClick={handleAddRequest}>
+        <div className="tech-add-request-container">
+          <button className="tech-buttons" onClick={handleAddRequest}>
             Add Request +
           </button>
         </div>
