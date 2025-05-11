@@ -65,7 +65,7 @@ export default function TechSupportPage() {
   
   // Clicking the Add Request button
   const handleAddRequest = () => {
-    alert("Add Request button was clicked");
+    setPageState(addRequestPage);
   };
 
   if (pageState === agentPage) {
@@ -79,7 +79,7 @@ export default function TechSupportPage() {
   if (pageState === addRequestPage) {
     return (
       <div>
-        
+
       </div>
     );
   }
