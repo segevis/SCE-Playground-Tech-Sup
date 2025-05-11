@@ -5,8 +5,9 @@ import api from '../services/api.js';
 import '../App.css';
 
 export default function TechSupportPage() {
-  const { user } = useContext(StoreContext);
+  const { user } = useContext(StoreContext); // Gets the logged in user from the context
   
+  // Page states
   const agentPage = 1;
   const userPage = 2;
   const loadingScreen = 5;
@@ -15,6 +16,7 @@ export default function TechSupportPage() {
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
   const [addedId, setAddedId] = useState(null);
+
   const [requests, setRequests] = useState([]);
 
   // page state modifier.
@@ -22,10 +24,11 @@ export default function TechSupportPage() {
 
   let tempUrl = '/ts/techsupportadd/?name=';
 
-  useEffect(() => {
+  // Checking if the user is an Agent
+  useEffect(() => { 
   async function getPageType() {
 
-    if (!user?.email) // ignore strict mode triple call.
+    if (!user?.email) // Prevent error if user or user.email is undefined
       return;
 
     const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
@@ -75,44 +78,38 @@ export default function TechSupportPage() {
   if (pageState === userPage) {
     return (
       <div className="client-requests-page">
-      <h2 className="client-requests-page-title">
-        {"My Requests"}
-      </h2>
-
-      {error && <p className="error">{error}</p>}
-
-      {pageState === 5 ? (
-        <div className="client-page-spinner"></div>
-      ) : error ? (
-        <p className="error">{error}</p>
-      ) : requests.length === 0 ? (
-        <p className="no-requests">No requests yet.</p>
-      ) : (
-        <div className="requests-list">
-          {requests.map((req) => (
-            <div
-              key={req.id}
-              className="request-row"
-              onClick={() => alert(`Request #${req.id} clicked`)}
-            >
-              <span
-                className={`status-circle ${getStatusColor(req.content)}`}
-              ></span>
-              <span className="request-category">{req.content}</span>
-              <span className="request-id"> Request #{req.id}</span>
-            </div>
-          ))}
-        </div>
-      )}
-      {pageState !== 5 && (
+        <h2 className="client-requests-page-title">My Requests</h2>
+    
+        {error && <p className="error">{error}</p>}
+    
+        {requests.length === 0 ? (
+          <p className="no-requests">No requests yet.</p>
+        ) : (
+          <div className="requests-list">
+            {requests.map((req) => (
+              <div
+                key={req.id}
+                className="request-row"
+                onClick={() => alert(`Request #${req.id} clicked`)}
+              >
+                <span
+                  className={`status-circle ${getStatusColor(req.content)}`}
+                ></span>
+                <span className="request-category">{req.content}</span>
+                <span className="request-id"> Request #{req.id}</span>
+              </div>
+            ))}
+          </div>
+        )}
+    
         <div className="add-request-container">
           <button className="add-request-btn" onClick={handleAddRequest}>
             Add Request +
           </button>
         </div>
-      )}
-  </div>
-  )}
+      </div>
+    )};
+    
 
   return (
     <div className='home-container'>
