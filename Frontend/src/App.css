@@ -184,7 +184,7 @@ body {
   background-color: #1c86ee; /* Slightly darker blue */
 }
 
-.client-requests-page {
+.tech-client-requests-page {
   font-family: "Trebuchet MS", sans-serif;
   max-width: 700px;
   margin: 2% auto;
@@ -195,7 +195,7 @@ body {
   min-height: 300px;
 }
 
-.client-requests-page-title {
+.tech-client-requests-page-title {
   color: #333;
   text-align: center;
   font-size: 28px;
@@ -204,13 +204,13 @@ body {
   margin-top: 5%;
 }
 
-.requests-list {
+.tech-requests-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.request-row {
+.tech-request-row {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ccc;
@@ -220,11 +220,11 @@ body {
   transition: background-color 0.2s ease;
 }
 
-.request-row:hover {
+.tech-request-row:hover {
   background-color: #d8d8d8;
 }
 
-.status-circle {
+.tech-status-circle {
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -232,36 +232,36 @@ body {
   border: 1px solid black;
 }
 
-.status-circle.green {
+.tech-status-circle.green {
   background-color: green;
 }
 
-.status-circle.orange {
+.tech-status-circle.orange {
   background-color: orange;
 }
 
-.status-circle.red {
+.tech-status-circle.red {
   background-color: red;
 }
 
-.request-category {
+.tech-request-category {
   flex: 1;
   font-weight: 500;
   color: #555;
 }
 
-.request-id {
+.tech-request-id {
   color: #007bff;
   font-weight: bold;
 }
 
-.no-requests {
+.tech-no-requests {
   text-align: center;
   color: red;
   margin-top: 30px;
 }
 
-.add-request-btn {
+.tech-buttons {
   background-color: white;
   color: #007bff;
   border: 2px solid #007bff;
@@ -273,24 +273,24 @@ body {
   margin-top: 20px;
 }
 
-.add-request-container {
+.tech-add-request-container {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
 }
 
-.add-request-btn:hover {
+.tech-buttons:hover {
   background-color: #007bff;
   color: white;
   border-color: #007bff;
 }
 
-.add-request-btn:focus {
+.tech-buttons:focus {
   outline: none;
   box-shadow: none;
 }
 
-.error {
+.tech-error {
   color: red;
   text-align: center;
 }
