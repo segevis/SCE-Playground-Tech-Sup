@@ -25,16 +25,18 @@ export async function getTechSuppot(req, res) {
 // add single ticket.
 export async function addTicket(req, res) {
     const name = req.query.name;
-    const content = req.query.content;
+    const email = req.query.email;
+    const category = req.query.category;
+    const description = req.query.content;
+    const images = req.query.images;
 
-    if (!name || !content) {
+    if (!name || !email || !category || !description) {
         return res.status(400).json({ error: 'Name and content must be not null values.' });
     }
 
     try {
-        const result = await addDbTicket(name, content);
-        //console.log("Test!" + result.ticket.id);
-
+        const result = await addDbTicket(name, email, category, description, images);
+        
         if (result.success) {
         return res.status(200).json(result.ticket.id);
         } else {

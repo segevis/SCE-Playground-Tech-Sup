@@ -69,15 +69,33 @@ export async function getAllTechReports() {
 }
 
 // add one ticket.
-export async function addOneDbTicket(name, content) {
-  try {
-    if (!name || !content) {
-      throw new Error('Name and content are required.');
-    }
+export async function addOneDbTicket(name, email, category, description, images) {
 
+  const status = 1;
+  const urgency = 0;
+
+  // status codes
+  const high = 1;
+  const medium = 2;
+  const low = 3;
+
+  if (category === 'Security concern' || category === 'Crash or freezing issue' || category === 'Installation issue')
+  {
+    urgency = high;
+  }
+  else if (category === 'Update or version issue' || category === 'Integration issue with third-party software' || category === 'Bug report')
+  {
+    urgency = medium;
+  }
+  else
+  {
+    urgency = low;
+  }
+
+  try {
     const res = await pool.query(
-      'INSERT INTO tickets (name, content) VALUES ($1, $2) RETURNING *',
-      [name, content]
+      'INSERT INTO tickets (name, email, category, description, date, status, urgency, images) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      [name, email, category, description, date, status, urgency, images]
     );
 
     console.log('[ 🎫 ] New ticket added:', res.rows[0]);

@@ -4,8 +4,8 @@ export async function getAllTechReports() {
     return await db.getAllTechReports();
 }
 
-export async function addDbTicket(name, content) {
-    return await db.addOneDbTicket(name, content);
+export async function addDbTicket(name, email, category, description, images) {
+    return await db.addOneDbTicket(name, email, category, description, images);
 }
 
 export async function editDbTicket(id, content) {
