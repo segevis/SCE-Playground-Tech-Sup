@@ -241,7 +241,7 @@ export default function TechSupportPage() {
   
           <div className="button-group">
             <button className='tech-buttons' type="submit">Submit</button>
-            <button className='tech-buttons' type="button" onClick="resetForm()">Cancel</button>
+            <button className='tech-buttons' type="button" onClick={() => setPageState(userPage)}>Back</button>
           </div>
         </form>
   
