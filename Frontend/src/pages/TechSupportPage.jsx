@@ -68,7 +68,6 @@ export default function TechSupportPage() {
     fetchRequests();
   }, []);
   
-
 // Handle file change and preview
 const handleFileChange = (e) => {
   const selectedFiles = Array.from(e.target.files);
@@ -163,9 +162,7 @@ const handleSubmit = async (e) => {
 
   setMessageText(`Request ${requestId} submitted successfully!`);
   setMessageColor("green");
-
   setFormSubmittedSuccessfully(true);
-
 
   // Reset the form
   setUserType('');
@@ -183,7 +180,6 @@ const resetForm = () => {
   setFiles([]);
   setPreviews([]);
   setMessageText('');
-
   setFormSubmittedSuccessfully(false);
   setPageState(userPage); // חזרה לעמוד הראשי
 };
@@ -211,16 +207,25 @@ if (pageState === addRequestPage) {
   return (
     <div className="tech-form-container">
       <h1>Contact Technical Support</h1>
+
       <form onSubmit={handleSubmit}>
         <label>User Type:</label>
-        <select value={userType} onChange={(e) => setUserType(e.target.value)} required>
+        <select
+          value={userType}
+          onChange={(e) => setUserType(e.target.value)}
+          required
+        >
           <option value="">Select...</option>
           <option value="before">Before Purchase</option>
           <option value="after">After Purchase</option>
         </select>
 
         <label>Issue Category:</label>
-        <select value={issueCategory} onChange={(e) => setIssueCategory(e.target.value)} required>
+        <select
+          value={issueCategory}
+          onChange={(e) => setIssueCategory(e.target.value)}
+          required
+        >
           <option value="">Select an issue</option>
           <option value="Security concern">Security concern</option>
           <option value="Crash or freezing issue">Crash or freezing issue</option>
@@ -261,25 +266,23 @@ if (pageState === addRequestPage) {
         </div>
 
         <div className="tech-button-group">
-          <button className="tech-buttons" type="submit">Submit</button>
-          <button className="tech-buttons" type="button" onClick={resetForm}>Cancel</button>
-          {formSubmittedSuccessfully && (
-            <button
+          <button className="tech-buttons" type="submit">
+            Submit
+          </button>
+
+          <button
             className="tech-buttons"
             type="button"
-            onClick={() => {
-            setMessageText('');
-            setPageState(userPage);
-    }}
-  >
-    Back to My Requests
-  </button>
-)}
-
+            onClick={resetForm}
+          >
+            {formSubmittedSuccessfully ? 'Back to My Requests' : 'Cancel'}
+          </button>
         </div>
       </form>
 
-      <div id="tech-message" style={{ color: messageColor }}>{messageText}</div>
+      <div id="tech-message" style={{ color: messageColor }}>
+        {messageText}
+      </div>
     </div>
   );
 }
@@ -319,7 +322,6 @@ if (pageState === addRequestPage) {
       </div>
     )};
     
-
   return (
     <div className='home-container'>
       <h2>Loading...</h2>
