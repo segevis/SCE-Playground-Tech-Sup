@@ -21,8 +21,11 @@ export default function TechSupportPage() {
 
   const [requests, setRequests] = useState([]);
 
+  // agent page requests.
+  const [costumerReq, setCostumerReq] = useState([]);
+
   // page state modifier.
-  const [pageState, setPageState] = useState(5);
+  const [pageState, setPageState] = useState(loadingScreen);
 
   let tempUrl = "/ts/techsupportadd/?name=";
 
@@ -35,7 +38,7 @@ export default function TechSupportPage() {
 
       const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
 
-      if (res?.data.agent === true) setPageState(userPage); // change back.
+      if (res?.data.agent === true) setPageState(agentPage);
       else setPageState(userPage);
     }
 
@@ -45,17 +48,32 @@ export default function TechSupportPage() {
   // Loading requests from the DB
   useEffect(() => {
     async function fetchRequests() {
-      try {
-        const res = await api.get("/ts/techsupport");
-        setRequests(res.data);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load support requests");
+
+      if (pageState === loadingScreen)
+        return;
+
+      if (pageState === agentPage) {
+        try {
+          const res = await api.get("/ts/techsupport");
+          setCostumerReq(res.data);
+        } catch (err) {
+          console.error(err);
+          setError("Failed to load support requests");
+        }
+      }
+      else { // change the function to sapirs new function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        try {
+          const res = await api.get("/ts/techsupport");
+          setRequests(res.data);
+        } catch (err) {
+          console.error(err);
+          setError("Failed to load support requests");
+        }
       }
     }
 
     fetchRequests();
-  }, []);
+  }, [pageState != loadingScreen]);
 
   // Function to determine color by content (fake status)
   const getStatusColor = (content) => {
@@ -74,8 +92,35 @@ export default function TechSupportPage() {
 
   if (pageState === agentPage) {
     return (
-      <div className="home-container">
-        <h1> You are an agent! {user?.email}. </h1>
+      <div className="tech-agent-requests-page">
+        <h2 className="tech-client-requests-page-title">
+          Welcome agent: {user?.firstName}.
+        </h2>
+        <div className="tech-agent-content">
+          <div className="tech-left-agent-panel">
+            <h2 className="tech-panel-title">Customers</h2>
+            <div>
+              {costumerReq.map((req) => (
+                <div
+                  key={req.id}
+                  className="tech-request-row"
+                  onClick={() => setSelectedRequest(req)}
+                >
+                  <span
+                    className={`tech-status-circle ${getStatusColor(req.content)}`}
+                  ></span>
+                  <span className="tech-request-category">{req.content}</span>
+                  <span className="tech-request-id"> Request #{req.id}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+  
+          <div className="tech-right-agent-panel">
+            <h2 className="tech-panel-title">Leads</h2>
+            {/* Content will go here */}
+          </div>
+        </div>
       </div>
     );
   }

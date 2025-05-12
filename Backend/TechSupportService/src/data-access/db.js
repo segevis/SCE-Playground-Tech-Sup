@@ -15,13 +15,19 @@ const pool = new Pool({
 
 // Initialize DB: create table if it doesn't exist
 async function initDB() {
-  const requests = `
-    CREATE TABLE IF NOT EXISTS tickets (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      content TEXT NOT NULL
-    );
-  `;
+
+  const posts = `
+  CREATE TABLE IF NOT EXISTS tickets (
+    id SERIAL PRIMARY KEY,
+    email TEXT NOT NULL,
+    category TEXT NOT NULL,
+    description TEXT NOT NULL,
+    date DATE NOT NULL,
+    status INT NOT NULL,
+    urgency INT NOT NULL,
+    imgs BYTEA[4]
+  );
+`;
 
   const agents = `
     CREATE TABLE IF NOT EXISTS agents (
@@ -30,11 +36,23 @@ async function initDB() {
     );
   `;
 
+  const forum = `
+    CREATE TABLE IF NOT EXISTS forum (
+      id SERIAL PRIMARY KEY,
+      pid INT NOT NULL,
+      name TEXT NOT NULL,
+      content TEXT NOT NULL
+    );
+  `;
 
-  await pool.query(requests);
+
+  await pool.query(posts);
   await pool.query(agents);
+  await pool.query(forum);
+
   console.log("[ ✅ ] Table 'tickets' is ready.");
   console.log("[ ✅ ] Table 'agents' is ready.");
+  console.log("[ ✅ ] Table 'forum' is ready.");
 }
 
 // Call it immediately
