@@ -38,7 +38,7 @@ export default function TechSupportPage() {
 
       const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
 
-      if (res?.data.agent === true) setPageState(agentPage);
+      if (res?.data.agent === true) setPageState(userPage);
       else setPageState(userPage);
     }
 
@@ -234,10 +234,10 @@ export default function TechSupportPage() {
                 >
                   <span
                     className={`tech-status-circle ${getStatusColor(
-                      req.content
+                      req.status
                     )}`}
                   ></span>
-                  <span className="tech-request-category">{req.content}</span>
+                  <span className="tech-request-category">{req.category}</span>
                   <span className="tech-request-id"> Request #{req.id}</span>
                 </div>
               ))}
