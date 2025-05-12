@@ -251,28 +251,19 @@ export async function addDbAgent(email) {
 export async function getDbRequests(email) {
   try {
     const res = await pool.query(
-      'SELECT FROM tickets WHERE email = $1',
+      'SELECT * FROM tickets WHERE email = $1',
       [email]
     );
 
-  if (res.rowCount > 0) {
     return {
       success: true,
-      userRequest: res.rows
+      userRequest: res.rows, // will be [] if no rows found
     };
-  }
-  else {
+  } catch (err) {
+    console.error('[ ⚡ ] Error getting requests:', err.message);
     return {
-      success: true,
-      userRequest: 0
+      success: false,
+      error: err.message,
     };
   }
-
-} catch (err) {
-  console.error('[ ⚡ ] Error getting requests:', err.message);
-  return {
-    success: false,
-    error: err.message,
-  };
-}
 }

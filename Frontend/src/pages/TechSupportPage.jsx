@@ -69,9 +69,9 @@ export default function TechSupportPage() {
           setError("Failed to load support requests");
         }
       }
-      else { // change the function to sapirs new function !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      else { 
         try {
-          const res = await api.get("/ts/techsupport");
+          const res = await api.get("/ts/techsupportfetchuserrequests/?email=" + user?.email);
           setRequests(res.data);
         } catch (err) {
           console.error(err);
@@ -204,8 +204,6 @@ export default function TechSupportPage() {
     );
   }
   
-  
-
   if (pageState === addRequestPage) {
     return (
       <div className="tech-form-container">
@@ -249,8 +247,6 @@ export default function TechSupportPage() {
       </div>
     );
   }
-  
-  
 
   if (pageState === userPage) {
     return (
@@ -260,11 +256,11 @@ export default function TechSupportPage() {
 
           {error && <p className="tech-error">{error}</p>}
 
-          {requests.length === 0 ? (
+          {requests.userRequest.length === 0 ? (
             <p className="tech-no-requests">No requests yet.</p>
           ) : (
             <div className="tech-requests-list">
-              {requests.map((req) => (
+              {requests.userRequest.map((req) => (
                 <div
                   key={req.id}
                   className="tech-request-row"
