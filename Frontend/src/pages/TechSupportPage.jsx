@@ -203,90 +203,99 @@ const resetForm = () => {
     );
   }
 
-if (pageState === addRequestPage) {
-  return (
-    <div className="tech-form-container">
-      <h1>Contact Technical Support</h1>
-
-      <form onSubmit={handleSubmit}>
-        <label>User Type:</label>
-        <select
-          value={userType}
-          onChange={(e) => setUserType(e.target.value)}
-          required
-        >
-          <option value="">Select...</option>
-          <option value="before">Before Purchase</option>
-          <option value="after">After Purchase</option>
-        </select>
-
-        <label>Issue Category:</label>
-        <select
-          value={issueCategory}
-          onChange={(e) => setIssueCategory(e.target.value)}
-          required
-        >
-          <option value="">Select an issue</option>
-          <option value="Security concern">Security concern</option>
-          <option value="Crash or freezing issue">Crash or freezing issue</option>
-          <option value="Installation issue">Installation issue</option>
-          <option value="Update or version issue">Update or version issue</option>
-          <option value="Integration issue with third-party software">Integration issue with third-party software</option>
-          <option value="Performance issue">Performance issue</option>
-          <option value="Bug report">Bug report</option>
-          <option value="Other">Other</option>
-        </select>
-
-        <label>Description:</label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          minLength={10}
-          maxLength={2000}
-          required
-        />
-
-        <label>Upload Images (up to 4):</label>
-        <input
-          type="file"
-          multiple
-          accept=".jpg,.jpeg,.png,.gif"
-          onChange={handleFileChange}
-        />
-
-        <div id="tech-filePreview">
-          {previews.map((src, idx) => (
-            <img
-              key={idx}
-              src={src}
-              alt={`Preview ${idx + 1}`}
-              style={{ width: '100px', margin: '5px' }}
-            />
-          ))}
-        </div>
-
-        <div className="tech-button-group">
-          <button className="tech-buttons" type="submit">
-            Submit
-          </button>
-
-          <button
-            className="tech-buttons"
-            type="button"
-            onClick={resetForm}
+  if (pageState === addRequestPage) {
+    return (
+      <div className="tech-form-container">
+        <h1>Contact Technical Support</h1>
+  
+        <form onSubmit={handleSubmit}>
+          {/* User Type */}
+          <label>User Type:</label>
+          <select
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)}
+            required
           >
-            {formSubmittedSuccessfully ? 'Back to My Requests' : 'Cancel'}
-          </button>
+            <option value="">Select...</option>
+            <option value="before">Before Purchase</option>
+            <option value="after">After Purchase</option>
+          </select>
+  
+          {/* Issue Category */}
+          <label>Issue Category:</label>
+          <select
+            value={issueCategory}
+            onChange={(e) => setIssueCategory(e.target.value)}
+            required
+          >
+            <option value="">Select an issue</option>
+            <option value="Security concern">Security concern</option>
+            <option value="Crash or freezing issue">Crash or freezing issue</option>
+            <option value="Installation issue">Installation issue</option>
+            <option value="Update or version issue">Update or version issue</option>
+            <option value="Integration issue with third-party software">Integration issue with third-party software</option>
+            <option value="Performance issue">Performance issue</option>
+            <option value="Bug report">Bug report</option>
+            <option value="Other">Other</option>
+          </select>
+  
+          {/* Description */}
+          <label>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            minLength={10}
+            maxLength={2000}
+            required
+          />
+  
+          {/* Upload Images */}
+          <label>Upload Images (up to 4):</label>
+          <input
+            type="file"
+            multiple
+            accept=".jpg,.jpeg,.png,.gif"
+            onChange={handleFileChange}
+          />
+  
+          {/* Previews */}
+          <div id="tech-filePreview">
+            {previews.map((src, idx) => (
+              <img
+                key={idx}
+                src={src}
+                alt={`Preview ${idx + 1}`}
+                style={{ width: '100px', margin: '5px' }}
+              />
+            ))}
+          </div>
+  
+          {/* Buttons */}
+          <div className="tech-button-group">
+            {!formSubmittedSuccessfully && (
+              <button className="tech-buttons" type="submit">
+                Submit
+              </button>
+            )}
+  
+            <button
+              className="tech-buttons"
+              type="button"
+              onClick={resetForm}
+            >
+              {formSubmittedSuccessfully ? 'Back to My Requests' : 'Cancel'}
+            </button>
+          </div>
+        </form>
+  
+        {/* Message display */}
+        <div id="tech-message" style={{ color: messageColor }}>
+          {messageText}
         </div>
-      </form>
-
-      <div id="tech-message" style={{ color: messageColor }}>
-        {messageText}
       </div>
-    </div>
-  );
-}
-
+    );
+  }
+  
   if (pageState === userPage) {
     return (
       <div className="tech-client-requests-page">
