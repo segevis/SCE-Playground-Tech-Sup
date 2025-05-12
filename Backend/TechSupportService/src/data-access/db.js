@@ -15,13 +15,23 @@ const pool = new Pool({
 
 // Initialize DB: create table if it doesn't exist
 async function initDB() {
-  const requests = `
-    CREATE TABLE IF NOT EXISTS tickets (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      content TEXT NOT NULL
-    );
-  `;
+
+  //const del = `DROP TABLE IF EXISTS tickets;`;
+
+  const posts = `
+  CREATE TABLE IF NOT EXISTS tickets (
+    id SERIAL PRIMARY KEY,
+    type INT NOT NULL,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    category TEXT NOT NULL,
+    description TEXT NOT NULL,
+    date DATE NOT NULL,
+    status INT NOT NULL,
+    urgency INT NOT NULL,
+    imgs BYTEA[4]
+  );
+`;
 
   const agents = `
     CREATE TABLE IF NOT EXISTS agents (
@@ -30,11 +40,23 @@ async function initDB() {
     );
   `;
 
+  const forum = `
+    CREATE TABLE IF NOT EXISTS forum (
+      id SERIAL PRIMARY KEY,
+      pid INT NOT NULL,
+      name TEXT NOT NULL,
+      content TEXT NOT NULL
+    );
+  `;
 
-  await pool.query(requests);
+
+  await pool.query(posts);
   await pool.query(agents);
+  await pool.query(forum);
+
   console.log("[ ✅ ] Table 'tickets' is ready.");
   console.log("[ ✅ ] Table 'agents' is ready.");
+  console.log("[ ✅ ] Table 'forum' is ready.");
 }
 
 // Call it immediately
@@ -48,15 +70,52 @@ export async function getAllTechReports() {
 }
 
 // add one ticket.
-export async function addOneDbTicket(name, content) {
-  try {
-    if (!name || !content) {
-      throw new Error('Name and content are required.');
-    }
+export async function addOneDbTicket(type, name, email, category, description, images) {
 
+  let uType = 0;
+  const status = 1;
+  let urgency = 0;
+  const date = new Date;
+
+  // status codes
+  const high = 1;
+  const medium = 2;
+  const low = 3;
+
+  // status codes for user-type
+  const user = 1;
+  const lead = 2;
+
+  // img format
+  const imagesJSON = [
+    images.img1 ? Buffer.from(images.img1, 'hex') : null,
+    images.img2 ? Buffer.from(images.img2, 'hex') : null,
+    images.img3 ? Buffer.from(images.img3, 'hex') : null,
+    images.img4 ? Buffer.from(images.img4, 'hex') : null,
+  ];
+
+  if (category === 'Security concern' || category === 'Crash or freezing issue' || category === 'Installation issue')
+  {
+    urgency = high;
+  }
+  else if (category === 'Update or version issue' || category === 'Integration issue with third-party software' || category === 'Bug report')
+  {
+    urgency = medium;
+  }
+  else
+  {
+    urgency = low;
+  }
+
+  if (type === user)
+    uType = user;
+  else
+    uType = lead;
+
+  try {
     const res = await pool.query(
-      'INSERT INTO tickets (name, content) VALUES ($1, $2) RETURNING *',
-      [name, content]
+      'INSERT INTO tickets (type, name, email, category, description, date, status, urgency, imgs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+      [uType, name, email, category, description, date, status, urgency, imagesJSON]
     );
 
     console.log('[ 🎫 ] New ticket added:', res.rows[0]);
@@ -187,4 +246,33 @@ export async function addDbAgent(email) {
       error: err.message,
     };
   }
+}
+
+export async function getDbRequests(email) {
+  try {
+    const res = await pool.query(
+      'SELECT FROM tickets WHERE email = $1',
+      [email]
+    );
+
+  if (res.rowCount > 0) {
+    return {
+      success: true,
+      userRequest: res.rows
+    };
+  }
+  else {
+    return {
+      success: true,
+      userRequest: 0
+    };
+  }
+
+} catch (err) {
+  console.error('[ ⚡ ] Error getting requests:', err.message);
+  return {
+    success: false,
+    error: err.message,
+  };
+}
 }
