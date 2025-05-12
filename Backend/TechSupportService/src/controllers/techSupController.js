@@ -1,5 +1,5 @@
 import { addDbAgent, isDbAgent } from '../data-access/db.js';
-import { getAllTechReports, deleteDbTicket, addDbTicket, editDbTicket, isDbAgentexist, addOneDbAgent } from '../services/techSupportService.js';
+import { getAllTechReports, deleteDbTicket, addDbTicket, editDbTicket, isDbAgentexist, addOneDbAgent, getDbRequestFromOneUser } from '../services/techSupportService.js';
 
 // get all tickets.
 export async function getTechSuppot(req, res) {
@@ -129,6 +129,28 @@ export async function addAgent(req, res) {
         }
     } catch (error) {
         console.error('Error adding agent:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+// get all requests from specific user.
+export async function getRequestsFromOneUser(req, res) {
+    const email = req.query.email;
+    if (!email) {
+        return res.status(400).json({ error: 'email must be not null value.' });
+    }
+
+    try {
+        const result = await getDbRequestFromOneUser(email);
+
+        if (result.success) {
+        return res.status(200).json(result);
+        } else {
+        return res.status(404).json({ error: result.error });
+        }
+    } catch (error) {
+        console.error('Error getting requests:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
