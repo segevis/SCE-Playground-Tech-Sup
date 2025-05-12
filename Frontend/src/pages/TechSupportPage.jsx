@@ -78,11 +78,48 @@ export default function TechSupportPage() {
 
   if (pageState === addRequestPage) {
     return (
-      <div>
-
+      <div className="form-container">
+        <h1>Contact Technical Support</h1>
+        <form id="supportForm">
+          <label>User Type:</label>
+          <select id="userType" required>
+            <option value="">Select...</option>
+            <option value="before">Before Purchase</option>
+            <option value="after">After Purchase</option>
+          </select>
+  
+          <label>Issue Category:</label>
+          <select id="issueCategory" required>
+            <option value="">Select an issue</option>
+            <option value="Security concern">Security concern</option>
+            <option value="Crash or freezing issue">Crash or freezing issue</option>
+            <option value="Installation issue">Installation issue</option>
+            <option value="Update or version issue">Update or version issue</option>
+            <option value="Integration issue with third-party software">Integration issue with third-party software </option>
+            <option value="Performance issue">Performance issue</option>
+            <option value="Bug report">Bug report</option>
+            <option value="Other">Other</option>
+          </select>
+  
+          <label>Description:</label>
+          <textarea id="description" minLength="10" maxLength="2000" required></textarea>
+  
+          <label>Upload Images (up to 4):</label>
+          <input type="file" id="fileUpload" multiple accept=".jpg,.jpeg,.png,.gif" />
+  
+          <div id="filePreview"></div>
+  
+          <div className="button-group">
+            <button className='tech-buttons' type="submit">Submit</button>
+            <button className='tech-buttons' type="button" onClick="resetForm()">Cancel</button>
+          </div>
+        </form>
+  
+        <div id="message"></div>
       </div>
     );
   }
+  
 
   if (pageState === userPage) {
     return (
