@@ -24,21 +24,25 @@ export async function getTechSuppot(req, res) {
 
 // add single ticket.
 export async function addTicket(req, res) {
+    
+    const type = req.query.type;
     const name = req.query.name;
     const email = req.query.email;
     const category = req.query.category;
-    const description = req.query.content;
+    const description = req.query.description;
     const images = req.query.images;
 
-    if (!name || !email || !category || !description) {
-        return res.status(400).json({ error: 'Name and content must be not null values.' });
+    console.log("", name, email, category, description, images);
+
+    if (!type || !name || !email || !category || !description) {
+        return res.status(400).json({ error: 'all fields must be filled' });
     }
 
     try {
-        const result = await addDbTicket(name, email, category, description, images);
+        const result = await addDbTicket(type, name, email, category, description, images);
         
         if (result.success) {
-        return res.status(200).json(result.ticket.id);
+        return res.status(200).json({ ticketId: result.ticket.id });
         } else {
         return res.status(404).json({ error: result.error });
         }

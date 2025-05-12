@@ -239,6 +239,29 @@ body {
   color: #444;
 }
 
+.tech-request-header-row {
+  display: flex;
+  padding: 10px 0;
+  font-weight: bold;
+  color: #333;
+  /* darker for visibility */
+  border-bottom: 1px solid #aaa;
+}
+
+.tech-request-cell {
+  flex: 1;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(5, 8, 8);
+}
+
+.tech-request-header {
+  flex: 1;
+  text-align: center;
+}
+
 .tech-client-requests-page-title {
   color: #333;
   text-align: center;
@@ -256,12 +279,9 @@ body {
 
 .tech-request-row {
   display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
   align-items: center;
-  border-bottom: 1px solid #ccc;
-  padding: 8px 0;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .tech-request-row:hover {

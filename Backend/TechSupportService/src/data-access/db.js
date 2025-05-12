@@ -21,6 +21,7 @@ async function initDB() {
   const posts = `
   CREATE TABLE IF NOT EXISTS tickets (
     id SERIAL PRIMARY KEY,
+    type INT NOT NULL,
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     category TEXT NOT NULL,
@@ -69,15 +70,29 @@ export async function getAllTechReports() {
 }
 
 // add one ticket.
-export async function addOneDbTicket(name, email, category, description, images) {
+export async function addOneDbTicket(type, name, email, category, description, images) {
 
+  let uType = 0;
   const status = 1;
-  const urgency = 0;
+  let urgency = 0;
+  const date = new Date;
 
   // status codes
   const high = 1;
   const medium = 2;
   const low = 3;
+
+  // status codes for user-type
+  const user = 1;
+  const lead = 2;
+
+  // img format
+  const imagesJSON = [
+    images.img1 ? Buffer.from(images.img1, 'hex') : null,
+    images.img2 ? Buffer.from(images.img2, 'hex') : null,
+    images.img3 ? Buffer.from(images.img3, 'hex') : null,
+    images.img4 ? Buffer.from(images.img4, 'hex') : null,
+  ];
 
   if (category === 'Security concern' || category === 'Crash or freezing issue' || category === 'Installation issue')
   {
@@ -92,10 +107,15 @@ export async function addOneDbTicket(name, email, category, description, images)
     urgency = low;
   }
 
+  if (type === user)
+    uType = user;
+  else
+    uType = lead;
+
   try {
     const res = await pool.query(
-      'INSERT INTO tickets (name, email, category, description, date, status, urgency, images) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-      [name, email, category, description, date, status, urgency, images]
+      'INSERT INTO tickets (type, name, email, category, description, date, status, urgency, imgs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+      [uType, name, email, category, description, date, status, urgency, imagesJSON]
     );
 
     console.log('[ 🎫 ] New ticket added:', res.rows[0]);

@@ -55,6 +55,14 @@ export default function TechSupportPage() {
       if (pageState === agentPage) {
         try {
           const res = await api.get("/ts/techsupport");
+
+          res.data.sort((a, b) => {
+            if (a.urgency !== b.urgency) {
+              return a.urgency - b.urgency;
+            }
+            return a.id - b.id;
+          });
+
           setCostumerReq(res.data);
         } catch (err) {
           console.error(err);
@@ -76,13 +84,29 @@ export default function TechSupportPage() {
   }, [pageState != loadingScreen]);
 
   // Function to determine color by content (fake status)
-  const getStatusColor = (content) => {
-    return "red"; // Closed (default)
+  const getStatusColor = (status) => {
+    if (status === 1)
+      return 'green';
+    if (status === 2)
+      return 'orange';
+    else 
+    return 'red';
   };
 
   // Clicking the Add Request button
   const handleAddRequest = () => {
     setPageState(addRequestPage);
+  };
+
+  const getUrgencyText = (level) => {
+    if (level === 1)
+      return 'high';
+
+    if (level === 2)
+      return 'medium';
+
+    if (level === 3)
+      return 'low';
   };
 
   // Clicking the Send button in the popup
@@ -96,34 +120,91 @@ export default function TechSupportPage() {
         <h2 className="tech-client-requests-page-title">
           Welcome agent: {user?.firstName}.
         </h2>
+  
         <div className="tech-agent-content">
+          {/* LEFT PANEL: type === 1 */}
           <div className="tech-left-agent-panel">
             <h2 className="tech-panel-title">Customers</h2>
-            <div>
-              {costumerReq.map((req) => (
+  
+            <div className="tech-request-header-row">
+              <span className="tech-request-cell">Status</span>
+              <span className="tech-request-cell">Category</span>
+              <span className="tech-request-cell">Urgency</span>
+              <span className="tech-request-cell">ID</span>
+            </div>
+  
+            {costumerReq
+              .filter((req) => req.type === 1)
+              .map((req) => (
                 <div
                   key={req.id}
                   className="tech-request-row"
                   onClick={() => setSelectedRequest(req)}
                 >
-                  <span
-                    className={`tech-status-circle ${getStatusColor(req.content)}`}
-                  ></span>
-                  <span className="tech-request-category">{req.content}</span>
-                  <span className="tech-request-id"> Request #{req.id}</span>
+                  <span className="tech-request-cell">
+                    <span
+                      className={`tech-status-circle ${getStatusColor(req.status)}`}
+                      style={{ marginRight: '8px' }}
+                    ></span>
+                  </span>
+  
+                  <span className="tech-request-cell">{req.category}</span>
+  
+                  <span className="tech-request-cell">
+                    {getUrgencyText(req.urgency)}
+                  </span>
+  
+                  <span className="tech-request-cell tech-request-id">
+                    Request #{req.id}
+                  </span>
                 </div>
               ))}
-            </div>
           </div>
   
+          {/* RIGHT PANEL: type === 2 */}
           <div className="tech-right-agent-panel">
             <h2 className="tech-panel-title">Leads</h2>
-            {/* Content will go here */}
+  
+            <div className="tech-request-header-row">
+              <span className="tech-request-cell">Status</span>
+              <span className="tech-request-cell">Category</span>
+              <span className="tech-request-cell">Urgency</span>
+              <span className="tech-request-cell">ID</span>
+            </div>
+  
+            {costumerReq
+              .filter((req) => req.type === 2)
+              .map((req) => (
+                <div
+                  key={req.id + "-lead"}
+                  className="tech-request-row"
+                  onClick={() => setSelectedRequest(req)}
+                >
+                  <span className="tech-request-cell">
+                    <span
+                      className={`tech-status-circle ${getStatusColor(req.status)}`}
+                      style={{ marginRight: '8px' }}
+                    ></span>
+                  </span>
+  
+                  <span className="tech-request-cell">{req.category}</span>
+  
+                  <span className="tech-request-cell">
+                    {getUrgencyText(req.urgency)}
+                  </span>
+  
+                  <span className="tech-request-cell tech-request-id">
+                    Request #{req.id}
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
       </div>
     );
   }
+  
+  
 
   if (pageState === addRequestPage) {
     return (
