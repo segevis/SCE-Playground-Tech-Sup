@@ -359,7 +359,6 @@ body {
   text-align: center;
 }
 
-/* 1סימון  */
 .tech-form-container {
   background: white;
   padding: 10px 20px; 
@@ -421,8 +420,6 @@ body {
   font-weight: bold;
   color: black;
 }
-
-/* סימון2 */
 
 .tech-view-request-overlay {
   position: fixed;
