@@ -23,3 +23,7 @@ export async function isDbAgentexist(email) {
 export async function addOneDbAgent(email) {
     return await db.addDbAgent(email);
 }
+
+export async function getDbRequestFromOneUser(email) {
+    return await db.getDbRequests(email);
+}
