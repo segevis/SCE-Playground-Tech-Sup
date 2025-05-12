@@ -188,3 +188,32 @@ export async function addDbAgent(email) {
     };
   }
 }
+
+export async function getDbRequests(email) {
+  try {
+    const res = await pool.query(
+      'SELECT FROM tickets WHERE email = $1',
+      [email]
+    );
+
+  if (res.rowCount > 0) {
+    return {
+      success: true,
+      userRequest: res.rows
+    };
+  }
+  else {
+    return {
+      success: true,
+      userRequest: 0
+    };
+  }
+
+} catch (err) {
+  console.error('[ ⚡ ] Error getting requests:', err.message);
+  return {
+    success: false,
+    error: err.message,
+  };
+}
+}
