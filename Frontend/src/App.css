@@ -297,8 +297,7 @@ body {
 
 
 /* 1סימון  */
-
-.form-container {
+.tech-form-container {
   background: white;
   padding: 10px 20px; 
   border-radius: 8px;
@@ -309,52 +308,52 @@ body {
   min-height: 180px; 
 }
 
-.form-container h1 {
+.tech-form-container h1 {
   text-align: center;
   color: black;
 }
 
-.form-container form {
+.tech-form-container form {
   display: flex;
   flex-direction: column;
 }
 
-.form-container label {
+.tech-form-container label {
   margin-top: 10px;
   font-weight: bold;
   color: black;
 }
 
-.form-container select,
-.form-container textarea,
-.form-container input[type="file"] {
+.tech-form-container select,
+.tech-form-container textarea,
+.tech-form-container input[type="file"] {
   margin-top: 5px;
   padding: 8px;
   font-size: 14px;
   color: black;
 }
 
-.form-container textarea {
+.tech-form-container textarea {
   resize: vertical;
   height: 85px;
 }
 
-.form-container .button-group {
+.tech-button-group {
   margin-top: 15px;
   display: flex;
   gap: 10px;
 }
 
-#filePreview img {
+#tech-filePreview img {
   max-height: 60px;
   margin: 5px;
 }
 
-#error {
+#tech-error {
   color: red;
 }
 
-#message {
+#tech-message {
   margin-top: 15px;
   font-weight: bold;
   color: black;
