@@ -16,9 +16,12 @@ const pool = new Pool({
 // Initialize DB: create table if it doesn't exist
 async function initDB() {
 
+  //const del = `DROP TABLE IF EXISTS tickets;`;
+
   const posts = `
   CREATE TABLE IF NOT EXISTS tickets (
     id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
     email TEXT NOT NULL,
     category TEXT NOT NULL,
     description TEXT NOT NULL,
