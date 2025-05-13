@@ -186,7 +186,7 @@ body {
 
 .tech-client-requests-page {
   font-family: "Trebuchet MS", sans-serif;
-  max-width: 700px;
+  max-width: 50%;
   margin: 2% auto;
   padding: 30px 20px;
   background: #fff;
@@ -357,6 +357,78 @@ body {
   margin-top: 15px;
   font-weight: bold;
   color: black;
+}
+
+.tech-view-request-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85); /* כהה יותר */
+  z-index: 999;
+}
+
+.tech-view-request {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: black;
+  padding: 2%;
+  border-radius: 30px;
+  width: 420px;
+  z-index: 1000;
+  box-shadow: 0 0 5px 3px #007bff;
+}
+
+.tech-view-request-title {
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.tech-view-request-subtitle {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: #555;
+}
+
+.tech-view-request-history {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.tech-view-request-message {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.tech-view-request-textbox {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 1rem;
+  background: #fff;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  resize: none;
+}
+
+.tech-view-request-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tech-bold-label {
+  font-weight: bold;
 }
 
 /* =====================

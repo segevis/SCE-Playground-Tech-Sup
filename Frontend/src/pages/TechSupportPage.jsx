@@ -43,26 +43,45 @@ export default function TechSupportPage() {
     if (!user?.email) // Prevent error if user or user.email is undefined
       return;
 
-    const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
+      if (res?.data.agent === true) setPageState(userPage);
+      else setPageState(userPage);
+    }
 
-    if (res?.data.agent === true)
-      setPageState(userPage); // change back.
-    else
-      setPageState(userPage);
-  }
-
-  getPageType();
-}, [user?.email]);
+    getPageType();
+  }, [user?.email, requests?.length]);
   
   // Loading requests from the DB
   useEffect(() => {
     async function fetchRequests() {
-      try {
-        const res = await api.get("/ts/techsupport");
-        setRequests(res.data);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load support requests");
+
+      if (pageState === loadingScreen)
+        return;
+
+      if (pageState === agentPage) {
+        try {
+          const res = await api.get("/ts/techsupport");
+
+          res.data.sort((a, b) => {
+            if (a.urgency !== b.urgency) {
+              return a.urgency - b.urgency;
+            }
+            return a.id - b.id;
+          });
+
+          setCostumerReq(res.data);
+        } catch (err) {
+          console.error(err);
+          setError("Failed to load support requests");
+        }
+      }
+      else { 
+        try {
+          const res = await api.get("/ts/techsupportfetchuserrequests/?email=" + user?.email);
+          setRequests(res.data.userRequest);
+        } catch (err) {
+          console.error(err);
+          setError("Failed to load support requests");
+        }
       }
     }
 
@@ -185,9 +204,14 @@ const resetForm = () => {
   setPageState(userPage); // חזרה לעמוד הראשי
 };
 
-  // Function to determine color by content (fake status)
-  const getStatusColor = (content) => {
-    return "red"; // Closed (default)
+  // Function to determine color by content
+  const getStatusColor = (status) => {
+    if (status === 1)
+      return 'green';
+    if (status === 2)
+      return 'orange';
+    else 
+    return 'red';
   };
   
   // Clicking the Add Request button
@@ -203,7 +227,7 @@ const resetForm = () => {
       </div>
     );
   }
-
+  
   if (pageState === addRequestPage) {
   return (
     <div className="tech-form-container">
