@@ -43,6 +43,8 @@ export default function TechSupportPage() {
     if (!user?.email) // Prevent error if user or user.email is undefined
       return;
 
+      const res = await api.get("/ts/techsupportisagent/?email=" + user?.email);
+
       if (res?.data.agent === true) setPageState(userPage);
       else setPageState(userPage);
     }
