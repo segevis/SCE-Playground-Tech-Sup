@@ -43,7 +43,7 @@ export default function TechSupportPage() {
     }
 
     getPageType();
-  }, [user?.email]);
+  }, [user?.email, requests?.length]);
 
   // Loading requests from the DB
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function TechSupportPage() {
       else { 
         try {
           const res = await api.get("/ts/techsupportfetchuserrequests/?email=" + user?.email);
-          setRequests(res.data);
+          setRequests(res.data.userRequest);
         } catch (err) {
           console.error(err);
           setError("Failed to load support requests");
@@ -83,7 +83,7 @@ export default function TechSupportPage() {
     fetchRequests();
   }, [pageState != loadingScreen]);
 
-  // Function to determine color by content (fake status)
+  // Function to determine color by content
   const getStatusColor = (status) => {
     if (status === 1)
       return 'green';
@@ -256,11 +256,11 @@ export default function TechSupportPage() {
 
           {error && <p className="tech-error">{error}</p>}
 
-          {requests.userRequest.length === 0 ? (
+          {requests.length === 0 ? (
             <p className="tech-no-requests">No requests yet.</p>
           ) : (
             <div className="tech-requests-list">
-              {requests.userRequest.map((req) => (
+              {requests.map((req) => (
                 <div
                   key={req.id}
                   className="tech-request-row"
