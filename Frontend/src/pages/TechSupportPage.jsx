@@ -25,6 +25,7 @@ export default function TechSupportPage() {
   const [issueCategory, setIssueCategory] = useState('');
   const [description, setDescription] = useState('');
   const [files, setFiles] = useState([]);
+
   const [previews, setPreviews] = useState([]);
   const [messageText, setMessageText] = useState('');
   const [messageColor, setMessageColor] = useState('');
@@ -204,10 +205,19 @@ const resetForm = () => {
   }
 
   if (pageState === addRequestPage) {
-    return (
-      <div className="tech-form-container">
-        <h1>Contact Technical Support</h1>
-  
+  return (
+    <div className="tech-form-container">
+      <h1>Contact Technical Support</h1>
+
+      {formSubmittedSuccessfully ? (
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <h2 style={{ color: 'green' }}>Thank you for contacting us!</h2>
+          <p>We have received your request and will get back to you shortly.</p>
+          <button className="tech-buttons" onClick={resetForm}>
+            Back to My Requests
+          </button>
+        </div>
+      ) : (
         <form onSubmit={handleSubmit}>
           {/* User Type */}
           <label>User Type:</label>
@@ -220,7 +230,7 @@ const resetForm = () => {
             <option value="before">Before Purchase</option>
             <option value="after">After Purchase</option>
           </select>
-  
+
           {/* Issue Category */}
           <label>Issue Category:</label>
           <select
@@ -238,7 +248,7 @@ const resetForm = () => {
             <option value="Bug report">Bug report</option>
             <option value="Other">Other</option>
           </select>
-  
+
           {/* Description */}
           <label>Description:</label>
           <textarea
@@ -248,7 +258,7 @@ const resetForm = () => {
             maxLength={2000}
             required
           />
-  
+
           {/* Upload Images */}
           <label>Upload Images (up to 4):</label>
           <input
@@ -257,7 +267,7 @@ const resetForm = () => {
             accept=".jpg,.jpeg,.png,.gif"
             onChange={handleFileChange}
           />
-  
+
           {/* Previews */}
           <div id="tech-filePreview">
             {previews.map((src, idx) => (
@@ -269,32 +279,32 @@ const resetForm = () => {
               />
             ))}
           </div>
-  
+
           {/* Buttons */}
           <div className="tech-button-group">
-            {!formSubmittedSuccessfully && (
-              <button className="tech-buttons" type="submit">
-                Submit
-              </button>
-            )}
-  
+            <button className="tech-buttons" type="submit">
+              Submit
+            </button>
             <button
               className="tech-buttons"
               type="button"
               onClick={resetForm}
             >
-              {formSubmittedSuccessfully ? 'Back to My Requests' : 'Cancel'}
+              Cancel
             </button>
           </div>
         </form>
-  
-        {/* Message display */}
+      )}
+
+      {/* Message display */}
+      {!formSubmittedSuccessfully && (
         <div id="tech-message" style={{ color: messageColor }}>
           {messageText}
         </div>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
+}
   
   if (pageState === userPage) {
     return (
