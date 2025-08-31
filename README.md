@@ -33,7 +33,7 @@ Extensibility: replace localStorage with a POST request when backend is ready.
 
 📸 Screenshots
 
-![Form Screenshot](../../assets/contact-form.jpg)
+![Form Screenshot](assets/contact-form.jpg)
 
 # My Role in SCE Playground – Tech Support
 
