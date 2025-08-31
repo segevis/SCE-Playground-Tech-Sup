@@ -33,7 +33,7 @@ Extensibility: replace localStorage with a POST request when backend is ready.
 
 📸 Screenshots
 
-Add 1–2 images of the form & previews here.
+![Form Screenshot](contact form.png)
 
 # My Role in SCE Playground – Tech Support
 
